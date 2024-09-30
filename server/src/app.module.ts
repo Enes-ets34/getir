@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppConfigModule } from '@config/config.module';
 import { AuthModule } from '@auth/auth.module';
 import { UserModule } from '@user/user.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
+import { CorsMiddleware } from '@nest-middlewares/cors';
+import { GetAccessToRouteGuard } from 'middlewares/authorization/auth.middleware';
 
 @Module({
   imports: [
@@ -20,4 +22,6 @@ import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {}
+}
