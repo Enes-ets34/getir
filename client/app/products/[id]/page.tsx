@@ -1,11 +1,6 @@
-"use client";
-import Button from '@/app/components/button/Button';
-import {useParams} from 'next/navigation';
+'use client';
+import ProductDetailView from '@/views/product-detail-view';
 
-export default function Product() {
-  const params = useParams();
-  const id = params?.id;
-  return <div>product {id}
-  <Button text={'deneme'} onClick={()=>alert()} variant='secondary'/>
-  </div>;
+export default function ProductDetail() {
+  return <ProductDetailView />;
 }

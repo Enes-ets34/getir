@@ -1,5 +1,9 @@
 export interface ButtonProps {
   onClick: () => void;
   text: string;
-  variant?: 'primary' | 'secondary';
+  color?: string;
+  textColor?: string;
+  disabled?: boolean;
+  outlined?: boolean;
+  className?: string;
 }

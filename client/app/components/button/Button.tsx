@@ -2,18 +2,27 @@
 
 import React from 'react';
 import {ButtonProps} from './button.types';
-import {buttonStyles} from './button.styles';
+import {useStyles} from './button.styles';
 
 const Button: React.FC<ButtonProps> = ({
   onClick,
   text,
-  variant = 'primary',
+  color = 'bg-indigo-500',
+  textColor = 'text-white',
+  disabled = false,
+  className = '',
+  outlined = false,
 }) => {
-  const className = `${buttonStyles.base} ${
-    variant === 'primary' ? buttonStyles.primary : buttonStyles.secondary
-  }`;
+  const finalClassName = useStyles(
+    color,
+    textColor,
+    disabled,
+    outlined,
+    className,
+  );
+
   return (
-    <button className={className} onClick={onClick}>
+    <button className={finalClassName} onClick={onClick} disabled={disabled}>
       {text}
     </button>
   );

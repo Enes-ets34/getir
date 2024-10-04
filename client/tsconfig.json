@@ -11,6 +11,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "outDir": "./dist",
+    "baseUrl": "./app",  
     "incremental": true,
     "plugins": [
       {
@@ -19,6 +21,9 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@views/*": ["./views/*"],
+      "@assets/*": ["./assets/*"],
+      "@theme/*": ["./theme/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
