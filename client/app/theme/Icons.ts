@@ -6,6 +6,10 @@ import getir_su from '@assets/icons/getir-su.svg';
 import getir_carsi from '@assets/icons/getir-carsi.svg';
 import getir_yemek from '@assets/icons/getir-yemek.svg';
 import getir_buyuk from '@assets/icons/getir-buyuk.svg';
+import search from '@assets/icons/search.svg';
+import house from '@assets/icons/house.svg';
+import chevron from '@assets/icons/chevron.svg';
+import alert_circle from '@assets/icons/alert-circle.svg';
 
 export const Icons = {
   language,
@@ -16,6 +20,10 @@ export const Icons = {
   getir_yemek,
   getir_su,
   getir_carsi,
+  search,
+  house,
+  chevron,
+  alert_circle
 };
 
 export type icons = keyof typeof Icons;

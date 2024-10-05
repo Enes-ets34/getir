@@ -19,7 +19,7 @@ const NavItem = ({
       className={` ${
         selected ? 'bg-primary' : ' '
       } ${navigationsStyles.navItemList}`}>
-      <Icon source={icon} color={Colors.purpleLight} size={iconSize} />
+      <Icon source={icon as icons} color={Colors.purpleLight} size={iconSize} />
     </li>
   );
 };

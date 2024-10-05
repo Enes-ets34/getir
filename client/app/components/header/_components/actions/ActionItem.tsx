@@ -16,13 +16,12 @@ const ActionItem = ({
   boldText,
   text,
 }: ActionItemProps) => {
-    console.log('boldText :>> ', boldText);
   return (
     <li
       className={`${boldText ? 'font-bold ' : 'font-normal '} ${
         actionsStyles.actionItem
       } `}>
-      <Icon source={icon} color={Colors.purpleLight} size={iconSize} />
+      <Icon source={icon as icons} color={Colors.purpleLight} size={iconSize} />
       <a href="#" rel="noopener noreferrer">
         {text}
       </a>

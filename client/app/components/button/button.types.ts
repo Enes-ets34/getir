@@ -1,4 +1,5 @@
-export interface ButtonProps {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
   text: string;
   color?: string;

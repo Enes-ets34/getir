@@ -9,6 +9,7 @@ const Icon: React.FC<IconProps> = ({
   size = {},
   color = Colors.borderColorPrimary,
   stroke = false,
+  className='',
   ...props
 }: IconProps): JSX.Element => {
   const IconComponent = Icons[source as icons];
@@ -21,6 +22,7 @@ const Icon: React.FC<IconProps> = ({
       fill={color}
       width={width}
       height={height}
+      className={className}
       {...props}
     />
   );
