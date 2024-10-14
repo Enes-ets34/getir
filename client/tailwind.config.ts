@@ -37,6 +37,9 @@ const config: Config = {
       borderWidth: {
         ...Borders,
       },
+      borderRadius: {
+        ...Borders,
+      },
       fontSize: {
         ...Fonts,
       },

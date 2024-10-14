@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import Header from './components/header/Header';
+import Modal from './components/modal/Modal';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`antialiased text-sm`}>
         <Header />
+        <Modal />
         {children}
       </body>
     </html>

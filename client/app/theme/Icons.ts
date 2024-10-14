@@ -10,6 +10,7 @@ import search from '@assets/icons/search.svg';
 import house from '@assets/icons/house.svg';
 import chevron from '@assets/icons/chevron.svg';
 import alert_circle from '@assets/icons/alert-circle.svg';
+import close from '@assets/icons/close.svg';
 
 export const Icons = {
   language,
@@ -23,7 +24,8 @@ export const Icons = {
   search,
   house,
   chevron,
-  alert_circle
+  alert_circle,
+  close
 };
 
 export type icons = keyof typeof Icons;
