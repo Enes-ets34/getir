@@ -7,7 +7,7 @@ import {useStyles} from './button.styles';
 const Button: React.FC<ButtonProps> = ({
   onClick,
   text,
-  color = 'bg-indigo-500',
+  color = 'bg-primary',
   textColor = 'text-white',
   disabled = false,
   className = '',
@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={finalClassName} onClick={onClick} disabled={disabled}>
-      {text}
+      <span className='font-semibold'>{text}</span>
     </button>
   );
 };

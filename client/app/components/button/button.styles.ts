@@ -1,6 +1,6 @@
 // button.styles.ts
 export const buttonStyles = {
-  base: 'px-4 py-2 rounded transition duration-300',
+  base: 'px-4 py-3 rounded-borderRadiusL transition duration-300',
   outlinedBase: 'border',
 };
 

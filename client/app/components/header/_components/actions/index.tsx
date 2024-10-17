@@ -1,6 +1,10 @@
+'use client';
 import {icons} from '@/theme/Icons';
 import ActionItem from './ActionItem';
 import {actionsStyles} from './actions.styles';
+import {useModalStore} from '@/store/modal';
+import Login from '@/components/login/Login';
+import Register from '@/components/register/Register';
 
 interface ActionItemType {
   id: number;
@@ -13,6 +17,7 @@ interface ActionItemType {
   onClick?: () => void;
 }
 const Actions = () => {
+  const {openModal, setContent, setTitle, setBottom} = useModalStore();
   const actionItems: ActionItemType[] = [
     {
       id: 1,
@@ -26,14 +31,28 @@ const Actions = () => {
       text: 'Giriş yap',
       icon: 'profile',
       iconSize: {width: 16, height: 16},
-      onClick: () => {},
+      onClick: () => {
+        setContent(<Login />);
+        setBottom(<div>yarak</div>);
+        setTitle('Giriş yap veya kayıt ol');
+        openModal();
+      },
     },
     {
       id: 3,
       text: 'Kayıt Ol',
       icon: 'user_add',
       iconSize: {width: 16, height: 16},
-      onClick: () => {},
+      onClick: () => {
+        setContent(<Register />);
+        setBottom(
+          <div className="bg-grayLight gap-1 text-grayStorm flex justify-center p-5 items-center rounded-b-lg">
+            Getir'e üyeysen <span className="text-primary cursor-pointer font-semibold">Giriş yap</span>
+          </div>,
+        );
+        setTitle('Kayıt ol');
+        openModal();
+      },
     },
   ];
   return (
@@ -41,6 +60,7 @@ const Actions = () => {
       {actionItems &&
         actionItems?.map((actionItem, index) => (
           <ActionItem
+            onClick={actionItem?.onClick}
             key={actionItem?.id}
             boldText={index > 0}
             icon={actionItem?.icon}

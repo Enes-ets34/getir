@@ -9,20 +9,23 @@ interface ActionItemProps {
   iconSize?: {width?: number; height?: number};
   text?: string;
   boldText?: boolean;
+  onClick?: () => void;
 }
 const ActionItem = ({
   icon,
   iconSize = {width: 24, height: 24},
   boldText,
   text,
+  onClick,
 }: ActionItemProps) => {
   return (
     <li
+      onClick={onClick}
       className={`${boldText ? 'font-bold ' : 'font-normal '} ${
         actionsStyles.actionItem
       } `}>
       <Icon source={icon as icons} color={Colors.purpleLight} size={iconSize} />
-      <a href="#" rel="noopener noreferrer">
+      <a className='hover:cursor-pointer hidden md:block'>
         {text}
       </a>
     </li>

@@ -1,52 +1,83 @@
-import React from 'react';
+'use client';
+import React, {useEffect, useState} from 'react';
 import {InputProps} from './input.types';
-import {inputStyles} from './input.styles';
-import Icon from '@/components/icon/Icon'; // Icon'u içe aktar
+import Icon from '../icon/Icon';
+import {useStyles} from './input.styles';
 import Colors from '@/theme/Colors';
 
 const Input: React.FC<InputProps> = ({
-  placeholder = 'Enter text...',
+  placeholder = null,
   type = 'text',
   value,
-  onChange,
-  className = '',
-  icon,
-  disabled = false,
-  label = null,
+  className,
+  icon = null,
+  label,
   errorText = null,
-  iconSize = {width: 14, height: 14},
+  iconSize = {width: 16, height: 16},
+  disabled = false,
+  onChange,
+  id,
+  ...rest
 }) => {
+  const [inputId, setInputId] = useState(id || '');
+
+  useEffect(() => {
+    if (!id) {
+      setInputId(`input-${Math.random().toString(36).substr(2, 9)}`);
+    }
+  }, [id]);
+
+  const {
+    relative,
+    inputClassName,
+    labelClassName,
+    errorClassName,
+    iconClassName,
+    errorIconClassName,
+  } = useStyles({
+    disabled,
+    errorText,
+    className,
+    hasIcon: !!icon,
+    value,
+  });
+
   return (
-    <div>
-      <div className={`${inputStyles.wrapper} ${errorText ? ' mb-1' : ''}`}>
+    <div className='flex flex-col'>
+      <div className={relative}>
         {icon && (
-          <Icon source={icon} size={iconSize} className={inputStyles.icon} />
+          <Icon
+            source={icon}
+            className={iconClassName}
+            color={disabled ? Colors.gray50 : Colors.primary}
+            size={iconSize}
+          />
         )}
         <input
-          id="floating_filled"
-          disabled={disabled}
-          type={type}
-          value={value}
-          placeholder={label ? ' ' : placeholder || ' '}
           onChange={onChange}
-          className={`
-            ${inputStyles.base} 
-            ${icon ? inputStyles.inputWithIcon : ''}
-            ${disabled ? inputStyles.disabled : ''}
-            ${errorText ? inputStyles.error : ''}
-            ${className} 
-        `}
+          id={inputId}
+          type={type}
+          disabled={disabled}
+          className={`${inputClassName}`}
+          placeholder={placeholder || ' '}
+          value={value}
+          {...rest}
         />
         {label && (
-          <label
-            htmlFor="floating_filled"
-            className={`${inputStyles.label} ${icon ? ' left-10 top-2' : ' '}`}>
+          <label htmlFor={inputId} className={labelClassName}>
             {label}
           </label>
         )}
-        {errorText && <Icon source={'alert_circle'} color={Colors.danger} size={{width:16,height:16}} className='absolute right-2' />}
-        </div>
-      {errorText && <span className={inputStyles.errorText}>{errorText}</span>}
+        {errorText && (
+          <Icon
+            source={'alert_circle'}
+            color={Colors.borderColorError}
+            className={errorIconClassName}
+            size={{width: 22, height: 22}}
+          />
+        )}
+      </div>
+      {errorText && <small className={errorClassName}>{errorText}</small>}
     </div>
   );
 };
