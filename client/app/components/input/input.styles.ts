@@ -6,15 +6,17 @@ export const inputStyles = {
   error:
     'border-borderColorError hover:border-borderColorError focus:border-borderColorError',
   default:
-    'border-borderColorGrayLight  focus:border-borderColorPrimary hover:border-inputPlaceholder',
+    'border-borderColorGrayLight  focus:border-borderColorPrimary hover:border-primary',
   icon: (hasIcon: boolean) => (hasIcon ? 'pl-8' : 'px-3.5'),
   label: (value: string | undefined, hasIcon: boolean) =>
-    `hover:cursor-text absolute  duration-300 transform scale-75 -translate-y-4 top-3.5 z-10 origin-[0] start-2.5
+    `hover:cursor-text absolute  duration-300 transform scale-75 -translate-y-4 top-3.5 z-10 origin-[0]
      peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4
-     ${
-       value ? 'text-primary' : 'text-inputPlaceholder peer-focus:text-primary'
-     } 
-     ${hasIcon ? 'left-9 top-4' : 'left-4'}
+      ${
+       value ? 'text-primary ' : 'text-inputPlaceholder peer-focus:text-primary '
+     }
+      ${
+        !!hasIcon ? ' start-9 ' : ' start-4'
+     }
     `,
   errorText: 'text-borderColorError font-semibold',
   errorIcon: 'absolute right-4 top-4',
@@ -34,6 +36,7 @@ export const useStyles = ({
   hasIcon: boolean;
   value: string | undefined;
 }) => {
+  console.log('hasIcon :>> ', !!hasIcon ? ' left-8 top-4 ' : ' left-[18px] ');
   const disabledClass = disabled ? inputStyles.disabled : '';
   const errorClass = errorText ? inputStyles.error : inputStyles.default;
   const iconClass = inputStyles.icon(hasIcon);

@@ -43,7 +43,7 @@ const Input: React.FC<InputProps> = ({
   });
 
   return (
-    <div className='flex flex-col'>
+    <div className="flex flex-col">
       <div className={relative}>
         {icon && (
           <Icon
@@ -64,7 +64,11 @@ const Input: React.FC<InputProps> = ({
           {...rest}
         />
         {label && (
-          <label htmlFor={inputId} className={labelClassName}>
+          <label
+            htmlFor={inputId}
+            className={`${labelClassName} ${
+              !!icon ? ' ' : ' '
+            }`}>
             {label}
           </label>
         )}

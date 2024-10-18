@@ -43,7 +43,7 @@ const Register: React.FC = () => {
         </span>{' '}
         hükümlerini kabul etmektesin
       </small>
-      <Button text='Kayıt Ol' onClick={()=>{}} className='mt-8'/>
+      <Button text='Kayıt Ol' color='secondary' onClick={()=>{}} className='mt-8'/>
     </div>
   );
 };

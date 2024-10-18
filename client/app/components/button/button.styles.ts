@@ -1,20 +1,26 @@
 // button.styles.ts
 export const buttonStyles = {
-  base: 'px-4 py-3 rounded-borderRadiusL transition duration-300',
-  outlinedBase: 'border',
+  base: 'px-4 py-3 rounded-borderRadiusL transition duration-300 font-semibold',
+  disabled: 'opacity-50 cursor-not-allowed',
+  outlined: 'border-2 bg-transparent',
+  primary: 'bg-primary text-white hover:bg-secondary',
+  secondary: 'bg-brandYellow text-primary hover:bg-secondary hover:text-brandYellow ',
 };
 
 export const useStyles = (
-  color: string,
+  color: 'primary' | 'secondary',
   textColor: string,
   disabled: boolean,
   outlined: boolean,
   className: string,
 ) => {
-  const disabledClass = disabled ? 'opacity-50 cursor-not-allowed' : '';
-  const variantClass = outlined
-    ? `${buttonStyles.outlinedBase} border-${color} text-${color} bg-transparent`
-    : `${color} ${textColor}`;
+  const baseClass = buttonStyles.base;
+  const disabledClass = disabled ? buttonStyles.disabled : '';
+  
+  // Renk ve outlined durumuna göre class belirliyoruz
+  const colorClass = outlined
+    ? `${buttonStyles.outlined} ${textColor} border-${color === 'primary' ? 'primary' : 'brandYellow'}`
+    : buttonStyles[color];
 
-  return `${buttonStyles.base} ${variantClass} ${disabledClass} ${className}`;
+  return `${baseClass} ${colorClass} ${disabledClass} ${className}`;
 };

@@ -1,17 +1,18 @@
+// Button.tsx
 'use client';
 
 import React from 'react';
-import {ButtonProps} from './button.types';
-import {useStyles} from './button.styles';
+import { ButtonProps } from './button.types';
+import { useStyles } from './button.styles';
 
 const Button: React.FC<ButtonProps> = ({
   onClick,
   text,
-  color = 'bg-primary',
-  textColor = 'text-white',
+  color = 'primary', // Default primary
+  textColor = 'text-white', // Default text color
   disabled = false,
-  className = '',
   outlined = false,
+  className = '',
 }) => {
   const finalClassName = useStyles(
     color,
@@ -23,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button className={finalClassName} onClick={onClick} disabled={disabled}>
-      <span className='font-semibold'>{text}</span>
+      {text}
     </button>
   );
 };

@@ -12,6 +12,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      left8: {
+        left: '32px !important',
+      },
       container: {
         center: true,
         screens: {
@@ -51,6 +54,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require('@tailwindcss/forms')],
 };
 export default config;

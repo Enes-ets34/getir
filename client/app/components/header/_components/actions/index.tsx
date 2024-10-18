@@ -33,7 +33,7 @@ const Actions = () => {
       iconSize: {width: 16, height: 16},
       onClick: () => {
         setContent(<Login />);
-        setBottom(<div>yarak</div>);
+        setBottom(<div>login bottom</div>);
         setTitle('Giriş yap veya kayıt ol');
         openModal();
       },
@@ -47,7 +47,14 @@ const Actions = () => {
         setContent(<Register />);
         setBottom(
           <div className="bg-grayLight gap-1 text-grayStorm flex justify-center p-5 items-center rounded-b-lg">
-            Getir'e üyeysen <span className="text-primary cursor-pointer font-semibold">Giriş yap</span>
+            Getir'e üyeysen <span 
+            onClick={()=>{
+
+              setContent(<Login />);
+              
+            }
+          }
+            className="text-primary cursor-pointer font-semibold">Giriş yap</span>
           </div>,
         );
         setTitle('Kayıt ol');
