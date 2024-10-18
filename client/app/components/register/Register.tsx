@@ -1,16 +1,35 @@
 'use client';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PhoneNumberInput from '../phone-number-input/Input';
 import Input from '../input/Input';
 import Checkbox from '../header/_components/checkbox/Checkbox';
 import Button from '../button/Button';
+import {useModalStore} from '@/store/modal';
+import Login from '../login/Login';
+import {registerStyles} from './register.styles';
 
 const Register: React.FC = () => {
+  const {openModal, setContent, setTitle, setBottom} = useModalStore();
   const [isChecked, setIsChecked] = useState(false);
   const [phone, setPhone] = useState<string | null>(null);
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
   };
+  useEffect(() => {
+    setBottom(
+      <div className={registerStyles.bottomText}>
+        Getir'e üyeysen{' '}
+        <span
+          onClick={() => {
+            setContent(<Login />);
+          }}
+          className={registerStyles.actionLink}>
+          Giriş yap
+        </span>
+      </div>,
+    );
+    setTitle('Kayıt Ol');
+  }, []);
   return (
     <div className="flex flex-col gap-4">
       <PhoneNumberInput
@@ -34,16 +53,16 @@ const Register: React.FC = () => {
       />
       <small className="text-grayMid">
         Kişisel verilere dair Aydınlatma Metni için{' '}
-        <span className="underline hover:cursor-pointer text-primary">
-          tıkla
-        </span>
-        . Üye olmakla,{' '}
-        <span className="underline hover:cursor-pointer text-primary">
-          Kullanım koşulları
-        </span>{' '}
+        <span className={registerStyles.link}>tıkla</span>. Üye olmakla,{' '}
+        <span className={registerStyles.link}>Kullanım koşulları</span>{' '}
         hükümlerini kabul etmektesin
       </small>
-      <Button text='Kayıt Ol' color='secondary' onClick={()=>{}} className='mt-8'/>
+      <Button
+        text="Kayıt Ol"
+        color="primary"
+        onClick={() => {}}
+        className="mt-8"
+      />
     </div>
   );
 };
