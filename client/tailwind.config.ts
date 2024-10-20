@@ -12,9 +12,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      left8: {
-        left: '32px !important',
-      },
       container: {
         center: true,
         screens: {
@@ -51,6 +48,22 @@ const config: Config = {
         normal: '400',
         semibold: '600',
         bold: '700',
+      },
+      keyframes: {
+        animloader: {
+          '0%': {
+            transform: 'scale(0)',
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '0',
+          },
+        },
+      },
+      animation: {
+        loader1: 'animloader 0.5s linear infinite',
+        loader2: 'animloader 1s linear infinite 0.1s',
       },
     },
   },

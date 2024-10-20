@@ -1,14 +1,19 @@
 'use client';
-import React, {useEffect} from 'react';
-import Input from '../input/Input';
+import React, {useEffect, useState} from 'react';
 import {useModalStore} from '@/store/modal';
 import Register from '../register/Register';
 import PhoneNumberInput from '../phone-number-input/Input';
 import Button from '../button/Button';
 import {registerStyles} from '../register/register.styles';
+import {useLoginMutation} from '@/queries/auth/auth.mutation';
+import {useLoadingStore} from '@/store/loading';
 
 const Login: React.FC = () => {
   const {setContent, setTitle, setBottom} = useModalStore();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const {showLoading, hideLoading} = useLoadingStore();
+  const loginMutation = useLoginMutation();
+  const {isPending} = loginMutation;
 
   useEffect(() => {
     setBottom(
@@ -24,13 +29,23 @@ const Login: React.FC = () => {
       </div>,
     );
     setTitle('Giriş yap veya kayıt ol');
-  }, []);
+  }, [setBottom, setTitle]);
+
+  const handleLogin = async () => {
+    await loginMutation.mutateAsync({phoneNumber});
+  };
+  useEffect(() => {
+    isPending ? showLoading() : hideLoading();
+  }, [isPending]);
   return (
     <div className="flex flex-col gap-2">
-      <PhoneNumberInput />
+      <PhoneNumberInput
+        value={phoneNumber}
+        onChange={e => setPhoneNumber(e.target.value)}
+      />
       <Button
         color="secondary"
-        onClick={() => {}}
+        onClick={handleLogin}
         text="Telefon numarası ile devam et"
       />
       <small className="mt-4 text-grayMid">

@@ -24,6 +24,8 @@
       "@views/*": ["./views/*"],
       "@assets/*": ["./assets/*"],
       "@theme/*": ["./theme/*"],
+      "@store/*": ["./store/*"],
+      "@api/*": ["./api/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

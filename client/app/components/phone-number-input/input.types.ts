@@ -1,6 +1,3 @@
-import {icons} from '@/theme/Icons';
-
-// input.types.ts
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: 'text' | 'password' | 'email' | 'number' | 'phone';
@@ -11,5 +8,7 @@ export interface InputProps
   iconSize?: {width?: number; height?: number};
   disabled?: boolean;
   id?: string;
+  countryCode?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setCountryCode?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

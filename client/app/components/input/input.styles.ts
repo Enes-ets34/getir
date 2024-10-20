@@ -36,7 +36,6 @@ export const useStyles = ({
   hasIcon: boolean;
   value: string | undefined;
 }) => {
-  console.log('hasIcon :>> ', !!hasIcon ? ' left-8 top-4 ' : ' left-[18px] ');
   const disabledClass = disabled ? inputStyles.disabled : '';
   const errorClass = errorText ? inputStyles.error : inputStyles.default;
   const iconClass = inputStyles.icon(hasIcon);

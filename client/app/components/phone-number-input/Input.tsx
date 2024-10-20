@@ -4,6 +4,7 @@ import {InputProps} from './input.types';
 import Input from '../input/Input';
 import countries from '@assets/countries/countries.json';
 import Icon from '../icon/Icon';
+import { inputStyles } from './input.styles';
 
 const PhoneNumberInput: React.FC<InputProps> = ({
   type = 'text',
@@ -52,13 +53,12 @@ const PhoneNumberInput: React.FC<InputProps> = ({
   }, [isDropdownOpen, selectedCountry]);
 
   return (
-    <div className={`flex gap-2 items-start relative w-full`}>
-      {/* Dropdown trigger */}
+    <div className={inputStyles.wrapper}>
       <div
         onClick={toggleDropdown}
         className={`${
           isDropdownOpen ? 'border-primary' : 'border-borderColorGrayLight'
-        } cursor-pointer bg-gray-50 border-2 p-3.5 rounded-borderRadiusM w-28 flex justify-between items-center`}>
+        } ${inputStyles.dropdown}`}>
         <span>
           {selectedCountry.emoji} {selectedCountry.dial_code}
         </span>
@@ -71,11 +71,10 @@ const PhoneNumberInput: React.FC<InputProps> = ({
         />
       </div>
 
-      {/* Dropdown list */}
       {isDropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute top-full w-28 left-0 bg-white rounded shadow-lg max-h-40 overflow-y-auto z-[99]">
+          className={inputStyles.dropdownList}>
           {countries.map(country => (
             <div
               key={country.code}
@@ -90,8 +89,6 @@ const PhoneNumberInput: React.FC<InputProps> = ({
           ))}
         </div>
       )}
-
-      {/* Input field */}
       <div className="flex-1">
         <Input
           type={type}

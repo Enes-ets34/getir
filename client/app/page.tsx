@@ -1,17 +1,22 @@
 'use client';
 import Button from '@/components/button/Button';
 import Icon from '@/components/icon/Icon';
-import Colors, {colors} from './theme/Colors';
+import Colors from './theme/Colors';
 import Input from './components/input/Input';
-import {useEffect, useState} from 'react';
-import PhoneNumberInput from './components/phone-number-input/Input';
+import { useState} from 'react';
+import {ToastEnum} from './components/toast/toast.types';
+import {useToastStore} from './store/toast';
+import { useLoadingStore } from './store/loading';
 
 export default function Home() {
+  const {addToast} = useToastStore();
+  const {showLoading} = useLoadingStore();
   const onClick = (): void => {
     console.log('hello');
+    addToast('Kullanıcı Adı veya şifre yanlış', ToastEnum.ERROR);
+    showLoading()
   };
   const [value, setValue] = useState('');
-  const [phoneValue, setPhoneValue] = useState('');
   return (
     <div>
       home
