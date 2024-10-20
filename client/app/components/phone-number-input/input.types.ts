@@ -10,5 +10,5 @@ export interface InputProps
   id?: string;
   countryCode?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setCountryCode?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setCountryCode?: (e?:string ) => void;
 }

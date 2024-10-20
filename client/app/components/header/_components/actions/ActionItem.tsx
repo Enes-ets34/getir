@@ -25,7 +25,7 @@ const ActionItem = ({
         actionsStyles.actionItem
       } `}>
       <Icon source={icon as icons} color={Colors.purpleLight} size={iconSize} />
-      <a className='hover:cursor-pointer hidden md:block'>
+      <a className='hover:cursor-pointer hidden lg:block'>
         {text}
       </a>
     </li>

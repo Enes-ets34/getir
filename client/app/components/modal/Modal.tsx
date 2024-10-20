@@ -7,7 +7,8 @@ import Colors from '@/theme/Colors';
 import Animated from '../animated/Animated';
 
 const Modal: React.FC = () => {
-  const {isOpen, closeModal, content, title, bottom} = useModalStore();
+  const {isOpen, closeModal, content, title, bottom, backButton} =
+    useModalStore();
 
   if (!isOpen) return null;
 
@@ -23,6 +24,15 @@ const Modal: React.FC = () => {
             className={`${modalStyles.container} ${
               bottom ?? 'rounded-b-borderRadiusL'
             }`}>
+            {backButton && (
+              <button className={modalStyles.backButton}>
+                <Icon
+                  source={'chevron'}
+                  size={{width: 10, height: 10}}
+                  color={Colors.primary}
+                />
+              </button>
+            )}
             <button onClick={closeModal} className={modalStyles.closeButton}>
               <Icon
                 source={'close'}
@@ -30,6 +40,7 @@ const Modal: React.FC = () => {
                 color={Colors.black}
               />
             </button>
+
             {title && <p className={modalStyles.title}>{title}</p>}
             <div className={modalStyles.content}>{content}</div>
           </div>

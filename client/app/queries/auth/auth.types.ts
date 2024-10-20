@@ -1,22 +1,22 @@
 export interface LoginRequest {
-  email: string;
   password: string;
-  phoneNumber?:string
+  phone?: string;
 }
-
+export interface User {
+  id: string;
+  fullName: string;
+  email: string;
+  phone?: string;
+}
 export interface RegisterRequest {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
-  phoneNumber?:string
+  phone?: string;
 }
 
 export interface AuthResponse {
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    phoneNumber?:string
-  };
+  access_token: string;
+  user: User;
+  status?:string
 }

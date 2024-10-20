@@ -39,6 +39,7 @@ export class AuthController {
     };
   }
   @Get('logout')
+  @UseGuards(GetAccessToRouteGuard)
   async logout(@Res() res: Response) {
     return this.authService.logout(res);
   }

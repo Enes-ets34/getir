@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const requestConfigInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

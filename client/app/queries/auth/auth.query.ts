@@ -13,11 +13,7 @@ export const useUserQuery = () => {
       if (!token) {
         throw new Error('User not authenticated');
       }
-      const response = await httpRequest.get<AuthResponse>('/auth/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await httpRequest.get<AuthResponse>('/auth/test');
       return response.data;
     },
     onSuccess: (data: AuthResponse) => {

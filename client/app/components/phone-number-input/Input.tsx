@@ -4,7 +4,7 @@ import {InputProps} from './input.types';
 import Input from '../input/Input';
 import countries from '@assets/countries/countries.json';
 import Icon from '../icon/Icon';
-import { inputStyles } from './input.styles';
+import {inputStyles} from './input.styles';
 
 const PhoneNumberInput: React.FC<InputProps> = ({
   type = 'text',
@@ -15,6 +15,7 @@ const PhoneNumberInput: React.FC<InputProps> = ({
   disabled = false,
   onChange,
   id,
+  setCountryCode,
   ...rest
 }) => {
   const [inputId, setInputId] = useState(id || '');
@@ -34,6 +35,9 @@ const PhoneNumberInput: React.FC<InputProps> = ({
   const handleCountryCodeChange = (country: any) => {
     setSelectedCountry(country);
     setIsDropdownOpen(false);
+    if (setCountryCode) {
+      setCountryCode(country.dial_code);
+    }
   };
 
   const toggleDropdown = () => {
@@ -72,9 +76,7 @@ const PhoneNumberInput: React.FC<InputProps> = ({
       </div>
 
       {isDropdownOpen && (
-        <div
-          ref={dropdownRef}
-          className={inputStyles.dropdownList}>
+        <div ref={dropdownRef} className={inputStyles.dropdownList}>
           {countries.map(country => (
             <div
               key={country.code}
@@ -96,7 +98,7 @@ const PhoneNumberInput: React.FC<InputProps> = ({
           label={label}
           errorText={errorText || ''}
           disabled={disabled}
-          onChange={onChange}
+          onChange={onChange} // Telefon numarasını kontrol et
           id={inputId}
           className={'px-2'}
           {...rest}

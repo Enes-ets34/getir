@@ -40,17 +40,17 @@ export class AuthService {
   async login(
     loginUserDto: LoginUserDto,
   ): Promise<{ user: User; token: string }> {
-    const { email, password } = loginUserDto;
+    const { phone, password } = loginUserDto;
 
-    const user = await this.userModel.findOne({ email }).select('+password');
+    const user = await this.userModel.findOne({ phone }).select('+password');
     if (!user) {
-      throw new UnauthorizedException('Geçersiz email veya şifre');
+      throw new UnauthorizedException('Geçersiz numara veya şifre');
     }
 
     try {
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        throw new UnauthorizedException('Geçersiz email veya şifre');
+        throw new UnauthorizedException('Geçersiz numara veya şifre');
       }
     } catch (error) {
       throw new UnauthorizedException('Şifre kontrolü sırasında hata oluştu');

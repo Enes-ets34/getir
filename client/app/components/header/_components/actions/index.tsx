@@ -17,7 +17,7 @@ interface ActionItemType {
   onClick?: () => void;
 }
 const Actions = () => {
-  const {openModal, setContent, setTitle, setBottom} = useModalStore();
+  const {openModal, setContent} = useModalStore();
   const actionItems: ActionItemType[] = [
     {
       id: 1,

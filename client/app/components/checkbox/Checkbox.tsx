@@ -3,14 +3,6 @@
 import React from "react";
 import { useStyles } from './checkbox.styles';
 
-// CheckboxProps tanımını yapmayı unutma
-interface CheckboxProps {
-  checked: boolean;
-  disabled?: boolean;
-  description: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   disabled = false,
