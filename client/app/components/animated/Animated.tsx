@@ -11,6 +11,7 @@ const Animated: React.FC<AnimatedProps> = ({
 }) => {
   return (
     <motion.div
+    style={{zIndex:99}}
       initial={initial}
       animate={animate}
       exit={exit}

@@ -21,6 +21,7 @@ const Colors = {
   warning: '#ddf300',
   success: '#188977',
   info: '#4eb5eb',
+  lilac: '#f2f0fe',
   inputPlaceholder: '#838287',
   brandYellow: '#ffd300',
   purpleLight: '#dbdbff',

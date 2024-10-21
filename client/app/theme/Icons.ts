@@ -11,6 +11,8 @@ import house from '@assets/icons/house.svg';
 import chevron from '@assets/icons/chevron.svg';
 import alert_circle from '@assets/icons/alert-circle.svg';
 import close from '@assets/icons/close.svg';
+import campaign from '@assets/icons/campaign.svg';
+import account from '@assets/icons/account.svg';
 
 export const Icons = {
   language,
@@ -25,7 +27,9 @@ export const Icons = {
   house,
   chevron,
   alert_circle,
-  close
+  close,
+  campaign,
+  account,
 };
 
 export type icons = keyof typeof Icons;

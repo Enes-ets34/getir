@@ -83,7 +83,7 @@ export const useRegisterMutation = () => {
   });
 };
 export const useLogoutMutation = () => {
-  const {setUser} = useAuthStore();
+  const {setUser, setAccessToken} = useAuthStore();
   const {addToast} = useToastStore();
   const {closeModal} = useModalStore();
   const {hideLoading} = useLoadingStore();
@@ -97,6 +97,7 @@ export const useLogoutMutation = () => {
       localStorage.removeItem('access_token');
       localStorage.removeItem('user');
       setUser(null);
+      setAccessToken(null);
       addToast('Çıkış Başarılı!', ToastEnum.SUCCESS);
       closeModal();
       hideLoading();
@@ -116,7 +117,7 @@ export const useLogoutMutation = () => {
   });
 };
 export const useTestTokenMutation = () => {
-  const {setUser} = useAuthStore();
+  const {setUser, setAccessToken} = useAuthStore();
   const {addToast} = useToastStore();
   const {hideLoading} = useLoadingStore();
 
@@ -125,8 +126,7 @@ export const useTestTokenMutation = () => {
       const response = await httpRequest.get<AuthResponse>('/auth/test');
       return response.data;
     },
-    onSuccess: (data:any) => {
-      setUser(null);
+    onSuccess: (data: any) => {
       addToast(data?.message, ToastEnum.SUCCESS);
       hideLoading();
     },
@@ -136,6 +136,10 @@ export const useTestTokenMutation = () => {
       if (messages && Array.isArray(messages)) {
         messages.forEach((message: string) => {
           addToast(message, ToastEnum.ERROR);
+          setUser(null);
+          setAccessToken(null);
+          localStorage?.removeItem('user');
+          localStorage?.removeItem('access_token');
         });
       } else {
         addToast('Beklenmedik bir hata oluştu.', ToastEnum.ERROR);

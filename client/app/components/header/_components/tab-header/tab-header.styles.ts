@@ -1,5 +1,5 @@
 export const tabHeaderStyles = {
-  wrapperStyle: 'bg-primary flex-1 sm:p-5 pb-0 pt-5',
+  wrapperStyle: 'bg-primary flex-1 sm:p-5  pb-0 pt-5',
   container: 'container flex justify-between flex-col sm:flex-row gap-4 sm:px-0 items-center',
   inputWrapperStyle: 'mx-auto flex justify-center w-full sm:w-auto',
   inputStyle: 'h-9 border-none outline-none rounded-r-none',
