@@ -20,7 +20,7 @@ export const inputStyles = {
     `,
   errorText: 'text-borderColorError font-semibold',
   errorIcon: 'absolute right-4 top-4',
-  iconClass: 'absolute left-3 top-4',
+  iconClass: 'absolute left-3 top-1/3',
 };
 
 export const useStyles = ({
