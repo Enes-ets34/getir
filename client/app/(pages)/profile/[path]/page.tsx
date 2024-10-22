@@ -1,7 +1,8 @@
 'use client';
 
 import {useParams} from 'next/navigation';
-import ProfileScreen, {ProfileRouteEnum} from '../page';
+import ProfileScreen from '../page';
+import { ProfileRouteEnum } from '@/views/profile/profile.types';
 
 const Path = () => {
   const params = useParams();

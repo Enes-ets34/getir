@@ -1,9 +1,11 @@
-import {ProfileRouteEnum} from '@/(pages)/profile/page';
+'use client';
+
+import {ProfileRouteEnum} from '@/views/profile/profile.types';
 
 export interface ListItemType {
   id: number;
   text?: string;
-  path?: string;
+  path?: ProfileRouteEnum;
 }
 export const listItems: ListItemType[] = [
   {
@@ -14,7 +16,7 @@ export const listItems: ListItemType[] = [
   {
     id: 2,
     text: 'Favori Ürünlerim',
-    path: 'favorites',
+    path: ProfileRouteEnum.Favorites,
   },
   {
     id: 3,
@@ -24,12 +26,12 @@ export const listItems: ListItemType[] = [
   {
     id: 4,
     text: 'Ödeme Yöntemlerim',
-    path: 'payments',
+    path: ProfileRouteEnum.PaymentMethods,
   },
   {
     id: 5,
     text: 'Fatura Bilgileri',
-    path: 'invoice',
+    path: ProfileRouteEnum.Invoice,
   },
   {
     id: 6,

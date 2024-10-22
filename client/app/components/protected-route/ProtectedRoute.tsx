@@ -6,7 +6,9 @@ import {useLoadingStore} from '@/store/loading';
 import {useTestTokenMutation} from '@/queries/auth/auth.mutation';
 import {useProtectedRoute} from '@/hooks/useProtectedRoute';
 import {useModalStore} from '@/store/modal';
-import Login from '../login/Login';
+import Login from '../login-modal/Login';
+import useNavigation from '@/utils/handleNavigation';
+import {RouteEnum} from './protectedRoutes.types';
 
 const ProtectedRoute = ({
   children,
@@ -15,6 +17,7 @@ const ProtectedRoute = ({
 }>) => {
   const router = useRouter();
   const path = usePathname();
+  const navigation = useNavigation();
   const {setUser, setAccessToken} = useAuthStore();
   const {showLoading, hideLoading} = useLoadingStore();
   const testTokenMutation = useTestTokenMutation();
@@ -22,7 +25,6 @@ const ProtectedRoute = ({
   const {isPending} = testTokenMutation;
 
   const isProtected = useProtectedRoute(path);
-
   useEffect(() => {
     const tokenCheck = async () => {
       const accessToken = localStorage.getItem('access_token');
@@ -39,13 +41,10 @@ const ProtectedRoute = ({
           localStorage.removeItem('access_token');
           setUser(null);
           setAccessToken(null);
-          if (isProtected) {
-            router?.push('/');
-          }
         }
       } else {
         if (isProtected) {
-          router?.push('/');
+          navigation('/' as RouteEnum);
           openModal();
           setContent(<Login />);
         }
@@ -58,7 +57,7 @@ const ProtectedRoute = ({
     isPending ? showLoading() : hideLoading();
   }, [isPending, showLoading, hideLoading]);
 
-  return <div className='container p-5 py-5'>{children}</div>;
+  return <div className="container p-5 sm:px-0 py-12">{children}</div>;
 };
 
 export default ProtectedRoute;

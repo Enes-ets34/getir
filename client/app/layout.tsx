@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="tr">
-      <body className={`antialiased text-sm`}>
+      <body className={`antialiased text-sm bg-[#f8f7f9]`}>
         <CustomQueryClientProvider>
           <Header />
           <Modal />

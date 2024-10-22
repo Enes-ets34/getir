@@ -3,15 +3,15 @@ import {TabHeaderProps} from './tab-header.types';
 import {tabHeaderStyles} from './tab-header.styles';
 import Icon from '@/components/icon/Icon';
 import Input from '@/components/input/Input';
+import Link from 'next/link';
 
 const TabHeader: React.FC<TabHeaderProps> = ({}) => {
   return (
     <div className={tabHeaderStyles.wrapperStyle}>
       <div className={tabHeaderStyles.container}>
-        <Icon
-          source={'getir'}
-          size={{width: 60, height: 27}}
-        />
+        <Link href={'/'}>
+          <Icon source={'getir'} size={{width: 60, height: 27}} />
+        </Link>
         <div className={tabHeaderStyles.inputWrapperStyle}>
           <Input
             placeholder="Ürün ara"

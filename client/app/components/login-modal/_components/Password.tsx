@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import {useModalStore} from '@/store/modal';
 import Button from '@/components/button/Button';
-import {registerStyles} from '@/components/register/register.styles';
+import {registerStyles} from '@/components/register-modal/register.styles';
 import {useLoginMutation} from '@/queries/auth/auth.mutation';
 import {useLoadingStore} from '@/store/loading';
 import Input from '@/components/input/Input';

@@ -13,7 +13,6 @@ import {useEffect} from 'react';
 import {useLogoutMutation} from '@/queries/auth/auth.mutation';
 import {useLoadingStore} from '@/store/loading';
 import {RouteEnum} from '../protected-route/protectedRoutes.types';
-import {ProfileRouteEnum} from '@/(pages)/profile/page';
 import Link from 'next/link';
 
 const ProfileDropdown = ({
@@ -34,6 +33,7 @@ const ProfileDropdown = ({
   useEffect(() => {
     isPending ? showLoading() : hideLoading();
   }, [isPending]);
+
   if (!isOpen) return null;
   return (
     <>
@@ -50,7 +50,8 @@ const ProfileDropdown = ({
               <div className={profileDropdownStyles.wrapper}>
                 <div className={profileDropdownStyles.container}>
                   <Link
-                    href={`/${RouteEnum.Profile}`}
+                    href={`${RouteEnum.Profile}`}
+                    prefetch={true}
                     className={profileDropdownStyles.header}>
                     <div className={profileDropdownStyles.avatar}>
                       <Icon
@@ -82,8 +83,9 @@ const ProfileDropdown = ({
                   <ul className={profileDropdownStyles.list}>
                     {listItems.map((listItem: ListItemType) => (
                       <Link
-                        href={`/${RouteEnum.Profile}/${listItem?.path}`}
+                        href={`${RouteEnum.Profile}/${listItem?.path}`}
                         key={listItem.id}
+                        prefetch={true}
                         className={profileDropdownStyles.listItem}>
                         <p className={profileDropdownStyles.listItemText}>
                           {listItem.text}

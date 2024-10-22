@@ -5,7 +5,7 @@ import Input from '../input/Input';
 import Checkbox from '../checkbox/Checkbox';
 import Button from '../button/Button';
 import { useModalStore } from '@/store/modal';
-import Login from '../login/Login';
+import Login from '../login-modal/Login';
 import { registerStyles } from './register.styles';
 import { useRegisterMutation } from '@/queries/auth/auth.mutation';
 import { useLoadingStore } from '@/store/loading';

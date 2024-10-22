@@ -13,6 +13,9 @@ import alert_circle from '@assets/icons/alert-circle.svg';
 import close from '@assets/icons/close.svg';
 import campaign from '@assets/icons/campaign.svg';
 import account from '@assets/icons/account.svg';
+import mail from '@assets/icons/mail.svg';
+import phone from '@assets/icons/phone.svg';
+import edit from '@assets/icons/edit.svg';
 
 export const Icons = {
   language,
@@ -30,6 +33,9 @@ export const Icons = {
   close,
   campaign,
   account,
+  mail,
+  phone,
+  edit,
 };
 
 export type icons = keyof typeof Icons;

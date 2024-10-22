@@ -1,10 +1,10 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import {useModalStore} from '@/store/modal';
-import Register from '../register/Register';
+import Register from '../register-modal/Register';
 import PhoneNumberInput from '../phone-number-input/Input';
 import Button from '../button/Button';
-import {registerStyles} from '../register/register.styles';
+import {registerStyles} from '../register-modal/register.styles';
 import Password from './_components/Password';
 import {Formik} from 'formik';
 import * as Yup from 'yup';

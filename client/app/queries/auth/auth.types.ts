@@ -7,6 +7,7 @@ export interface User {
   fullName: string;
   email: string;
   phone?: string;
+  password?:string
 }
 export interface RegisterRequest {
   fullName: string;

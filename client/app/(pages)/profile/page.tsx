@@ -1,35 +1,38 @@
 'use client';
-
-import ProfileView from '@/views/profile/ProfileView';
 import React from 'react';
+import ProfileSidebar from '@/components/profile-sidebar/ProfileSidebar';
+import ContactView from '@/views/contact/ContactView';
+import FavoritesView from '@/views/favorites/FavoritesView';
+import InvoiceView from '@/views/invoice/InvoiceView';
+import OrdersView from '@/views/orders/OrdersView';
+import PaymentMethodsView from '@/views/payment-methods/PaymentMethodsView';
+import AddressView from '@/views/address/AddressView';
+import ProfileView from '@/views/profile/ProfileView';
+import {ProfileRouteEnum} from '../../views/profile/profile.types';
 
-interface ProfileViewProps {
-  path: ProfileRouteEnum;
-}
-export enum ProfileRouteEnum {
-  Address = 'address',
-  Contact = 'contact',
-  Orders = 'orders',
-}
-
-const ProfileScreen: React.FC<ProfileViewProps> = ({path}) => {
+const ProfileScreen: React.FC<any> = ({path}) => {
   const renderContent = () => {
     switch (path) {
       case ProfileRouteEnum.Address:
-        return <div>Adreslerim İçeriği</div>;
+        return <AddressView />;
       case ProfileRouteEnum.Contact:
-        return <div>İletişim Tercihlerim İçeriği</div>;
+        return <ContactView />;
       case ProfileRouteEnum.Orders:
-        return <div>Geçmiş Siparişlerim İçeriği</div>;
+        return <OrdersView />;
+      case ProfileRouteEnum.Favorites:
+        return <FavoritesView />;
+      case ProfileRouteEnum.PaymentMethods:
+        return <PaymentMethodsView />;
+      case ProfileRouteEnum.Invoice:
+        return <InvoiceView />;
       default:
         return <ProfileView />;
     }
   };
 
   return (
-    <div>
-      <h1 className="font-bold">profil sayfası</h1>
-      <div>siderbar</div>
+    <div className="flex flex-col sm:flex-row gap-4">
+      <ProfileSidebar />
       {renderContent()}
     </div>
   );
