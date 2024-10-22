@@ -16,15 +16,12 @@ const AuthContext = () => {
       const user = localStorage.getItem('user')
         ? JSON.parse(localStorage.getItem('user') as string)
         : null;
-
       if (accessToken && user) {
         try {
-          await testTokenMutation.mutateAsync(); // Token kontrolü yap
-          // Başarılıysa kullanıcıyı ayarla
+          await testTokenMutation.mutateAsync();
           setUser(user);
           setAccessToken(accessToken);
         } catch (error) {
-          // Hata durumunda localStorage'ı temizle
           localStorage.removeItem('user');
           localStorage.removeItem('access_token');
           setUser(null);
@@ -36,7 +33,6 @@ const AuthContext = () => {
   }, []);
   useEffect(() => {
     isPending ? showLoading : hideLoading;
-    console.log('isPending :>> ', isPending);
   }, [isPending]);
 
   return null;

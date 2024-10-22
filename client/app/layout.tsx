@@ -1,32 +1,30 @@
-'use client';
 import './globals.css';
 import Header from '@/components/header/Header';
 import Modal from '@/components/modal/Modal';
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import Toast from '@/components/toast/Toast';
 import Loading from './components/loading/Loading';
-import Head from 'next/head';
 import AuthContext from './context/AuthContext';
+import CustomQueryClientProvider from './providers/CustomQueryClientProvider';
+import {Metadata} from 'next';
+
+export const metadata: Metadata = {
+  title: 'Getir',
+  viewport:
+    'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
+};
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
-  const queryClient = new QueryClient();
-
   return (
-    <html lang="en">
-      <Head>
-        <title>Getir</title>
-        <meta name="description" content="Getir clone" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <html lang="tr">
       <body className={`antialiased text-sm`}>
-        <QueryClientProvider client={queryClient}>
+        <CustomQueryClientProvider>
           <AuthContext />
           <Header />
           <Modal />
           <Toast />
           <Loading />
           {children}
-        </QueryClientProvider>
+        </CustomQueryClientProvider>
       </body>
     </html>
   );

@@ -82,7 +82,10 @@ const ProfileDropdown = ({
                         className={profileDropdownStyles.listItem}>
                         <p
                           className={profileDropdownStyles.listItemText}
-                          onClick={listItem.onClick}>
+                          onClick={()=>{
+                            listItem.onClick
+                            setDropdown()
+                          }}>
                           {listItem.text}
                         </p>
                       </li>

@@ -18,7 +18,7 @@ export default function Home() {
     await testTokenMutation.mutateAsync();
   };
   const onClick = async () => {
-    triggerTestTokenMutation();
+    await triggerTestTokenMutation();
   };
   const logout = async () => {
     await logoutMutation.mutateAsync();

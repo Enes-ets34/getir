@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { loadingStyles } from './loading.styles';
 import { useLoadingStore } from '@store/loading';
