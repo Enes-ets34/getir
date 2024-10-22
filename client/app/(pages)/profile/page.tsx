@@ -1,4 +1,4 @@
-import ProfileView from '@/views/profile-view';
+import ProfileView from './ProfileView';
 
 export default function Profile() {
   return <ProfileView />;

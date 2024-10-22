@@ -1,5 +1,5 @@
 'use client';
-import ProductDetailView from '@/views/product-detail-view';
+import ProductDetailView from './ProductDetailView';
 
 export default function ProductDetail() {
   return <ProductDetailView />;

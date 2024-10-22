@@ -37,7 +37,7 @@ const ProfileDropdown = ({
     <>
       {isOpen && (
         <div
-          onClick={() => setDropdown}
+          onClick={() => setDropdown()}
           className={`${isSmallScreen ? modalStyles.overlay : ''} z-[99]`}>
           <AnimatePresence>
             <Animated
