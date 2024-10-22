@@ -6,7 +6,7 @@ import {useToastStore} from '@store/toast';
 import {ToastEnum} from '@/components/toast/toast.types';
 import {useModalStore} from '@/store/modal';
 import {useLoadingStore} from '@/store/loading';
-
+import {useRouter} from 'next/navigation';
 export const useLoginMutation = () => {
   const {setUser, setAccessToken} = useAuthStore();
   const {addToast} = useToastStore();
@@ -87,6 +87,7 @@ export const useLogoutMutation = () => {
   const {addToast} = useToastStore();
   const {closeModal} = useModalStore();
   const {hideLoading} = useLoadingStore();
+  const router = useRouter();
 
   return useMutation<AuthResponse, Error>({
     mutationFn: async () => {
@@ -100,6 +101,7 @@ export const useLogoutMutation = () => {
       setAccessToken(null);
       addToast('Çıkış Başarılı!', ToastEnum.SUCCESS);
       closeModal();
+      router?.push('/');
       hideLoading();
     },
     onError: (error: any) => {

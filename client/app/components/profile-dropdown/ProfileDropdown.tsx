@@ -27,11 +27,11 @@ const ProfileDropdown = ({
   const {user} = useAuthStore();
   const logout = async () => {
     await logoutMutation.mutateAsync();
-    setDropdown();
   };
   useEffect(() => {
     isPending ? showLoading() : hideLoading();
   }, [isPending]);
+
   if (!isOpen) return null;
   return (
     <>
@@ -59,7 +59,7 @@ const ProfileDropdown = ({
                       {user && <span>{user?.fullName}</span>}
                       {user && (
                         <small className="font-semibold text-grayStorm">
-                          +905305848919
+                          {user?.phone}
                         </small>
                       )}
                     </div>
@@ -78,14 +78,10 @@ const ProfileDropdown = ({
                   <ul className={profileDropdownStyles.list}>
                     {listItems.map((listItem: ListItemType) => (
                       <li
+                        onClick={listItem.onClick}
                         key={listItem.id}
                         className={profileDropdownStyles.listItem}>
-                        <p
-                          className={profileDropdownStyles.listItemText}
-                          onClick={()=>{
-                            listItem.onClick
-                            setDropdown()
-                          }}>
+                        <p className={profileDropdownStyles.listItemText}>
                           {listItem.text}
                         </p>
                       </li>
@@ -93,7 +89,9 @@ const ProfileDropdown = ({
                   </ul>
                   <div className={profileDropdownStyles.bottom}>
                     <li
-                      onClick={logout}
+                      onClick={() => {
+                        logout();
+                      }}
                       className={profileDropdownStyles.listItem}>
                       <button className={profileDropdownStyles.listItemText}>
                         Çıkış yap

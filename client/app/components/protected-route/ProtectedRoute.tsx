@@ -1,15 +1,28 @@
-// AuthContext.tsx
 'use client';
 import {useEffect} from 'react';
+import {useRouter, usePathname} from 'next/navigation';
 import {useAuthStore} from '@/store/auth';
-import {useTestTokenMutation} from '@/queries/auth/auth.mutation';
 import {useLoadingStore} from '@/store/loading';
+import {useTestTokenMutation} from '@/queries/auth/auth.mutation';
+import {useProtectedRoute} from '@/hooks/useProtectedRoute';
+import {useModalStore} from '@/store/modal';
+import Login from '../login/Login';
 
-const AuthContext = () => {
+const ProtectedRoute = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const router = useRouter();
+  const path = usePathname();
   const {setUser, setAccessToken} = useAuthStore();
   const {showLoading, hideLoading} = useLoadingStore();
   const testTokenMutation = useTestTokenMutation();
+  const {openModal, setContent} = useModalStore();
   const {isPending} = testTokenMutation;
+
+  const isProtected = useProtectedRoute(path);
+
   useEffect(() => {
     const tokenCheck = async () => {
       const accessToken = localStorage.getItem('access_token');
@@ -26,16 +39,26 @@ const AuthContext = () => {
           localStorage.removeItem('access_token');
           setUser(null);
           setAccessToken(null);
+          if (isProtected) {
+            router?.push('/');
+          }
+        }
+      } else {
+        if (isProtected) {
+          router?.push('/');
+          openModal();
+          setContent(<Login />);
         }
       }
     };
     tokenCheck();
-  }, []);
-  useEffect(() => {
-    isPending ? showLoading : hideLoading;
-  }, [isPending]);
+  }, [isProtected, router]);
 
-  return null;
+  useEffect(() => {
+    isPending ? showLoading() : hideLoading();
+  }, [isPending, showLoading, hideLoading]);
+
+  return <>{children}</>;
 };
 
-export default AuthContext;
+export default ProtectedRoute;
