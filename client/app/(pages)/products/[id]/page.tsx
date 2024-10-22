@@ -1,6 +1,6 @@
 'use client';
-import ProductDetailView from './ProductDetailView';
+import ProductDetailView from '../../../views/product-detail/ProductDetailView';
 
-export default function ProductDetail() {
+export default function ProductDetailScreen() {
   return <ProductDetailView />;
 }

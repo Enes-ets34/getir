@@ -12,6 +12,9 @@ import {useAuthStore} from '@/store/auth';
 import {useEffect} from 'react';
 import {useLogoutMutation} from '@/queries/auth/auth.mutation';
 import {useLoadingStore} from '@/store/loading';
+import {RouteEnum} from '../protected-route/protectedRoutes.types';
+import {ProfileRouteEnum} from '@/(pages)/profile/page';
+import Link from 'next/link';
 
 const ProfileDropdown = ({
   isOpen,
@@ -31,7 +34,6 @@ const ProfileDropdown = ({
   useEffect(() => {
     isPending ? showLoading() : hideLoading();
   }, [isPending]);
-
   if (!isOpen) return null;
   return (
     <>
@@ -47,7 +49,9 @@ const ProfileDropdown = ({
               transition={{duration: 0.3, ease: 'easeOut'}}>
               <div className={profileDropdownStyles.wrapper}>
                 <div className={profileDropdownStyles.container}>
-                  <div className={profileDropdownStyles.header}>
+                  <Link
+                    href={`/${RouteEnum.Profile}`}
+                    className={profileDropdownStyles.header}>
                     <div className={profileDropdownStyles.avatar}>
                       <Icon
                         source={'account'}
@@ -74,17 +78,17 @@ const ProfileDropdown = ({
                         />
                       </button>
                     )}
-                  </div>
+                  </Link>
                   <ul className={profileDropdownStyles.list}>
                     {listItems.map((listItem: ListItemType) => (
-                      <li
-                        onClick={listItem.onClick}
+                      <Link
+                        href={`/${RouteEnum.Profile}/${listItem?.path}`}
                         key={listItem.id}
                         className={profileDropdownStyles.listItem}>
                         <p className={profileDropdownStyles.listItemText}>
                           {listItem.text}
                         </p>
-                      </li>
+                      </Link>
                     ))}
                   </ul>
                   <div className={profileDropdownStyles.bottom}>

@@ -1,3 +1,3 @@
-import { RouteEnum } from "./protectedRoutes.types";
+import {RouteEnum} from './protectedRoutes.types';
 
-export const protectedRoutes: RouteEnum[] = [RouteEnum.Profile, RouteEnum.Settings];
+export const protectedRoutes: RouteEnum[] = [RouteEnum.Profile];

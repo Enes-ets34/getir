@@ -58,7 +58,7 @@ const ProtectedRoute = ({
     isPending ? showLoading() : hideLoading();
   }, [isPending, showLoading, hideLoading]);
 
-  return <>{children}</>;
+  return <div className='container p-5 py-5'>{children}</div>;
 };
 
 export default ProtectedRoute;

@@ -1,51 +1,39 @@
+import {ProfileRouteEnum} from '@/(pages)/profile/page';
+
 export interface ListItemType {
-    id: number;
-    text?: string;
-    onClick?: () => void;
-  }
-  
-  export const listItems: ListItemType[] = [
-    {
-      id: 1,
-      text: 'Adreslerim',
-      onClick: () => {
-        console.log('adreslerim');
-      },
-    },
-    {
-      id: 2,
-      text: 'Favori Ürünlerim',
-      onClick: () => {
-        console.log('favori ürünlerim');
-      },
-    },
-    {
-      id: 3,
-      text: 'Geçmiş Siparişlerim',
-      onClick: () => {
-        console.log('geçmiş siparişlerim');
-      },
-    },
-    {
-      id: 4,
-      text: 'Ödeme Yöntemlerim',
-      onClick: () => {
-        console.log('ödeme yöntemlerim');
-      },
-    },
-    {
-      id: 5,
-      text: 'Fatura Bilgileri',
-      onClick: () => {
-        console.log('fatura bilgileri');
-      },
-    },
-    {
-      id: 6,
-      text: 'İletişim Tercihlerim',
-      onClick: () => {
-        console.log('iletişim tercihlerim');
-      },
-    },
-  ];
-  
+  id: number;
+  text?: string;
+  path?: string;
+}
+export const listItems: ListItemType[] = [
+  {
+    id: 1,
+    text: 'Adreslerim',
+    path: ProfileRouteEnum.Address,
+  },
+  {
+    id: 2,
+    text: 'Favori Ürünlerim',
+    path: 'favorites',
+  },
+  {
+    id: 3,
+    text: 'Geçmiş Siparişlerim',
+    path: ProfileRouteEnum.Orders,
+  },
+  {
+    id: 4,
+    text: 'Ödeme Yöntemlerim',
+    path: 'payments',
+  },
+  {
+    id: 5,
+    text: 'Fatura Bilgileri',
+    path: 'invoice',
+  },
+  {
+    id: 6,
+    text: 'İletişim Tercihlerim',
+    path: ProfileRouteEnum.Contact,
+  },
+];
