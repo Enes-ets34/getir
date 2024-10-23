@@ -9,8 +9,11 @@ import PaymentMethodsView from '@/views/payment-methods/PaymentMethodsView';
 import AddressView from '@/views/address/AddressView';
 import ProfileView from '@/views/profile/ProfileView';
 import {ProfileRouteEnum} from '../../views/profile/profile.types';
+import {useAuthStore} from '@/store/auth';
+import SkeletonLoader from '@/components/skeleton-loader/SkeletonLoader';
 
 const ProfileScreen: React.FC<any> = ({path}) => {
+  const {user} = useAuthStore();
   const renderContent = () => {
     switch (path) {
       case ProfileRouteEnum.Address:
@@ -29,12 +32,16 @@ const ProfileScreen: React.FC<any> = ({path}) => {
         return <ProfileView />;
     }
   };
-
+  if (!user) return <SkeletonLoader />;
   return (
-    <div className="flex flex-col sm:flex-row gap-4">
-      <ProfileSidebar />
-      {renderContent()}
-    </div>
+    <>
+      {user && (
+        <div className="flex flex-col sm:flex-row gap-4">
+          <ProfileSidebar />
+          {renderContent()}
+        </div>
+      )}
+    </>
   );
 };
 
