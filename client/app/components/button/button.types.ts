@@ -1,9 +1,8 @@
-// button.types.ts
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
   text: string;
-  color?: 'primary' | 'secondary'; // Renkler için sadece primary ve secondary kabul ediyoruz
+  color?: 'primary' | 'secondary';
   textColor?: string;
   disabled?: boolean;
   outlined?: boolean;

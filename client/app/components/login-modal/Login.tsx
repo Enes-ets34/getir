@@ -1,16 +1,16 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import {useModalStore} from '@/store/modal';
+import React, { useEffect, useState } from 'react';
+import { useModalStore } from '@/store/modal';
 import Register from '../register-modal/Register';
 import PhoneNumberInput from '../phone-number-input/Input';
 import Button from '../button/Button';
-import {registerStyles} from '../register-modal/register.styles';
+import { registerStyles } from '../register-modal/register.styles';
 import Password from './_components/Password';
-import {Formik} from 'formik';
+import { Formik, FormikValues } from 'formik';
 import * as Yup from 'yup';
+
 const Login: React.FC = () => {
-  const {setContent, setTitle, setBottom} = useModalStore();
-  const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
+  const { setContent, setTitle, setBottom } = useModalStore();
   const [countryCode, setCountryCode] = useState<string | null>('+90');
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Login: React.FC = () => {
       </div>,
     );
     setTitle('Giriş yap veya kayıt ol');
-  }, [setBottom, setTitle]);
+  }, [setBottom, setTitle, setContent]);
 
   const validationSchema = Yup.object({
     phone: Yup.string()
@@ -35,19 +35,19 @@ const Login: React.FC = () => {
       .matches(/^[0-9]{10}$/, 'Geçerli bir telefon numarası girin.'),
   });
 
-  const handleLogin = (values: any): void => {
+  const handleLogin = (values: FormikValues): void => {
     const phone: string = `${countryCode}${values.phone}`;
     setContent(<Password loginPhoneNumber={phone} />);
   };
 
   return (
     <Formik
-      initialValues={{phone: ''}}
+      initialValues={{ phone: '' }}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
       validateOnBlur={true}
       validateOnChange={true}>
-      {({values, handleChange, handleBlur, errors, touched, submitForm}) => (
+      {({ values, handleChange, handleBlur, errors, touched, submitForm }) => (
         <div className="flex flex-col gap-2">
           <PhoneNumberInput
             onChange={handleChange('phone')}

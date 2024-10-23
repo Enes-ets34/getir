@@ -1,16 +1,16 @@
-'use client';
-import React, {useEffect, useRef, useState} from 'react';
-import {InputProps} from './input.types';
-import Input from '../input/Input';
-import countries from '@assets/countries/countries.json';
-import Icon from '../icon/Icon';
-import {inputStyles} from './input.styles';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { Country, InputProps } from "./input.types";
+import Input from "../input/Input";
+import countries from "@assets/countries/countries.json";
+import Icon from "../icon/Icon";
+import { inputStyles } from "./input.styles";
 
 const PhoneNumberInput: React.FC<InputProps> = ({
-  type = 'text',
+  type = "text",
   value,
   className,
-  label = 'Telefon Numarası',
+  label = "Telefon Numarası",
   errorText = null,
   disabled = false,
   onChange,
@@ -18,10 +18,10 @@ const PhoneNumberInput: React.FC<InputProps> = ({
   setCountryCode,
   ...rest
 }) => {
-  const [inputId, setInputId] = useState(id || '');
-  const [selectedCountry, setSelectedCountry] = useState({
-    dial_code: '+90',
-    emoji: '🇹🇷',
+  const [inputId, setInputId] = useState(id || "");
+  const [selectedCountry, setSelectedCountry] = useState<Country>({
+    dial_code: "+90",
+    emoji: "🇹🇷",
   });
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -32,7 +32,7 @@ const PhoneNumberInput: React.FC<InputProps> = ({
     }
   }, [id]);
 
-  const handleCountryCodeChange = (country: any) => {
+  const handleCountryCodeChange = (country: Country) => {
     setSelectedCountry(country);
     setIsDropdownOpen(false);
     if (setCountryCode) {
@@ -47,11 +47,14 @@ const PhoneNumberInput: React.FC<InputProps> = ({
   useEffect(() => {
     if (isDropdownOpen && dropdownRef.current) {
       const selectedIndex = countries.findIndex(
-        country => country.dial_code === selectedCountry.dial_code,
+        (country) => country.dial_code === selectedCountry.dial_code
       );
       const selectedElement = dropdownRef.current.children[selectedIndex];
       if (selectedElement) {
-        selectedElement.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        selectedElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }
     }
   }, [isDropdownOpen, selectedCountry]);
@@ -61,31 +64,33 @@ const PhoneNumberInput: React.FC<InputProps> = ({
       <div
         onClick={toggleDropdown}
         className={`${
-          isDropdownOpen ? 'border-primary' : 'border-borderColorGrayLight'
-        } ${inputStyles.dropdown}`}>
+          isDropdownOpen ? "border-primary" : "border-borderColorGrayLight"
+        } ${inputStyles.dropdown}`}
+      >
         <span>
           {selectedCountry.emoji} {selectedCountry.dial_code}
         </span>
         <Icon
-          source={'chevron'}
-          size={{width: 12, height: 12}}
+          source={"chevron"}
+          size={{ width: 12, height: 12 }}
           className={
-            isDropdownOpen ? 'transform -rotate-90' : 'transform rotate-90'
+            isDropdownOpen ? "transform -rotate-90" : "transform rotate-90"
           }
         />
       </div>
 
       {isDropdownOpen && (
         <div ref={dropdownRef} className={inputStyles.dropdownList}>
-          {countries.map(country => (
+          {countries.map((country) => (
             <div
               key={country.code}
               onClick={() => handleCountryCodeChange(country)}
               className={`${
                 selectedCountry?.dial_code === country?.dial_code
-                  ? 'bg-borderColorPrimaryLight '
-                  : ''
-              } p-2 hover:bg-grayLight cursor-pointer`}>
+                  ? "bg-borderColorPrimaryLight "
+                  : ""
+              } p-2 hover:bg-grayLight cursor-pointer`}
+            >
               {country.emoji} {country.dial_code}
             </div>
           ))}
@@ -96,11 +101,11 @@ const PhoneNumberInput: React.FC<InputProps> = ({
           type={type}
           value={value}
           label={label}
-          errorText={errorText || ''}
+          errorText={errorText || ""}
           disabled={disabled}
-          onChange={onChange} // Telefon numarasını kontrol et
+          onChange={onChange}
           id={inputId}
-          className={'px-2'}
+          className={className + " px-2"}
           {...rest}
         />
       </div>

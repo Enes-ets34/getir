@@ -3,20 +3,18 @@ import React, {useEffect} from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
 import {useModalStore} from '@/store/modal';
-import {useLoadingStore} from '@/store/loading';
-import {Formik} from 'formik';
+import {Formik, FormikValues} from 'formik';
 import * as Yup from 'yup';
 import {useAuthStore} from '@/store/auth';
 
 const UpdateProfile: React.FC = () => {
   const {setTitle} = useModalStore();
-  const {showLoading, hideLoading} = useLoadingStore();
   const {user} = useAuthStore();
   useEffect(() => {
     setTitle('Hesap bilgilerini güncelle');
-  }, []);
+  }, [setTitle]);
 
-  const handleOnClick = (values: any) => {
+  const handleOnClick = (values: FormikValues) => {
     const form = {
       email: values.email,
       fullName: values.fullName,

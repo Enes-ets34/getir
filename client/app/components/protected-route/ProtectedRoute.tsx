@@ -1,14 +1,15 @@
 'use client';
-import {useEffect} from 'react';
-import {useRouter, usePathname} from 'next/navigation';
-import {useAuthStore} from '@/store/auth';
-import {useLoadingStore} from '@/store/loading';
-import {useTestTokenMutation} from '@/queries/auth/auth.mutation';
-import {useProtectedRoute} from '@/hooks/useProtectedRoute';
-import {useModalStore} from '@/store/modal';
+
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useAuthStore } from '@/store/auth';
+import { useLoadingStore } from '@/store/loading';
+import { useTestTokenMutation } from '@/queries/auth/auth.mutation';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
+import { useModalStore } from '@/store/modal';
 import Login from '../login-modal/Login';
 import useNavigation from '@/utils/handleNavigation';
-import {RouteEnum} from './protectedRoutes.types';
+import { RouteEnum } from './protectedRoutes.types';
 
 const ProtectedRoute = ({
   children,
@@ -18,13 +19,14 @@ const ProtectedRoute = ({
   const router = useRouter();
   const path = usePathname();
   const navigation = useNavigation();
-  const {setUser, setAccessToken} = useAuthStore();
-  const {showLoading, hideLoading} = useLoadingStore();
+  const { setUser, setAccessToken } = useAuthStore();
+  const { showLoading, hideLoading } = useLoadingStore();
   const testTokenMutation = useTestTokenMutation();
-  const {openModal, setContent} = useModalStore();
-  const {isPending} = testTokenMutation;
+  const { openModal, setContent } = useModalStore();
+  const { isPending } = testTokenMutation;
 
   const isProtected = useProtectedRoute(path);
+
   useEffect(() => {
     const tokenCheck = async () => {
       const accessToken = localStorage.getItem('access_token');
@@ -36,11 +38,12 @@ const ProtectedRoute = ({
           await testTokenMutation.mutateAsync();
           setUser(user);
           setAccessToken(accessToken);
-        } catch (error) {
+        } catch (err) { 
           localStorage.removeItem('user');
           localStorage.removeItem('access_token');
           setUser(null);
           setAccessToken(null);
+          console.error(err);
         }
       } else {
         if (isProtected) {
@@ -54,7 +57,11 @@ const ProtectedRoute = ({
   }, [isProtected, router]);
 
   useEffect(() => {
-    isPending ? showLoading() : hideLoading();
+    if (isPending) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
   }, [isPending, showLoading, hideLoading]);
 
   return <div className="container p-5 sm:px-0 py-6 sm:py-12">{children}</div>;

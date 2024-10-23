@@ -1,4 +1,5 @@
 import {create} from 'zustand';
+import { ModalStore } from './modalStore.types';
 
 export const useModalStore = create<ModalStore>(set => ({
   isOpen: false,

@@ -1,76 +1,84 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import PhoneNumberInput from '../phone-number-input/Input';
-import Input from '../input/Input';
-import Checkbox from '../checkbox/Checkbox';
-import Button from '../button/Button';
-import { useModalStore } from '@/store/modal';
-import Login from '../login-modal/Login';
-import { registerStyles } from './register.styles';
-import { useRegisterMutation } from '@/queries/auth/auth.mutation';
-import { useLoadingStore } from '@/store/loading';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+"use client";
+
+import React, { useEffect, useState } from "react";
+import PhoneNumberInput from "../phone-number-input/Input";
+import Input from "../input/Input";
+import Checkbox from "../checkbox/Checkbox";
+import Button from "../button/Button";
+import { useModalStore } from "@/store/modal";
+import Login from "../login-modal/Login";
+import { registerStyles } from "./register.styles";
+import { useRegisterMutation } from "@/queries/auth/auth.mutation";
+import { useLoadingStore } from "@/store/loading";
+import { Formik, FormikValues } from "formik";
+import * as Yup from "yup";
 
 const Register: React.FC = () => {
   const { setContent, setTitle, setBottom } = useModalStore();
   const { showLoading, hideLoading } = useLoadingStore();
   const registerMutation = useRegisterMutation();
   const [isChecked, setIsChecked] = useState(false);
-  const [countryCode, setCountryCode] = useState<string | null>('+90');
+  const [countryCode, setCountryCode] = useState<string | null>("+90");
   const { isPending } = registerMutation;
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
   };
+
   useEffect(() => {
     setBottom(
       <div className={registerStyles.bottomText}>
-        Getir'e üyeysen{' '}
+        Getir&apos;e üyeysen
         <span
           onClick={() => {
             setContent(<Login />);
           }}
-          className={registerStyles.actionLink}>
+          className={registerStyles.actionLink}
+        >
           Giriş yap
         </span>
-      </div>,
+      </div>
     );
-    setTitle('Kayıt Ol');
-  }, []);
+    setTitle("Kayıt Ol");
+  }, [setBottom, setContent, setTitle]);
 
   useEffect(() => {
-    isPending ? showLoading() : hideLoading();
+    if (isPending) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
   }, [isPending]);
 
-  const handleRegister = async (values: any) => {
+  const handleRegister = async (values: FormikValues) => {
     const form = {
       email: values.email,
       phone: `${countryCode}${values.phone}`,
       fullName: values.fullName,
       password: values.password,
     };
-    
+
     await registerMutation.mutateAsync(form);
   };
 
   const validationSchema = Yup.object({
     phone: Yup.string()
-      .required('Lütfen telefon numaranı gir.')
-      .matches(/^[0-9]{10}$/, 'Geçerli bir telefon numarası girin.'),
+      .required("Lütfen telefon numaranı gir.")
+      .matches(/^[0-9]{10}$/, "Geçerli bir telefon numarası girin."),
     fullName: Yup.string()
-      .required('Lütfen ad ve soyadını gir.')
-      .min(2, 'Ad soyad en az 2 karakter olmalıdır.'),
+      .required("Lütfen ad ve soyadını gir.")
+      .min(2, "Ad soyad en az 2 karakter olmalıdır."),
     email: Yup.string()
-      .required('Lütfen e-posta adresini gir.')
-      .email('Geçerli bir e-posta adresi girin.'),
+      .required("Lütfen e-posta adresini gir.")
+      .email("Geçerli bir e-posta adresi girin."),
     password: Yup.string()
-      .required('Lütfen şifreni gir.')
-      .min(6, 'Şifre en az 6 karakter olmalıdır.'),
+      .required("Lütfen şifreni gir.")
+      .min(6, "Şifre en az 6 karakter olmalıdır."),
   });
 
   return (
     <Formik
-      initialValues={{ phone: '', fullName: '', email: '', password: '' }}
+      initialValues={{ phone: "", fullName: "", email: "", password: "" }}
       validationSchema={validationSchema}
       onSubmit={handleRegister}
       validateOnBlur={true}
@@ -79,36 +87,40 @@ const Register: React.FC = () => {
       {({ values, handleChange, handleBlur, errors, touched, submitForm }) => (
         <div className="flex flex-col gap-4">
           <PhoneNumberInput
-            onChange={handleChange('phone')}
-            onBlur={handleBlur('phone')}
-            setCountryCode={code => setCountryCode(code as string)}
+            onChange={handleChange("phone")}
+            onBlur={handleBlur("phone")}
+            setCountryCode={(code) => setCountryCode(code as string)}
             value={values.phone}
             className="w-full"
-            errorText={touched.phone && errors.phone ? errors.phone : ''}
+            errorText={touched.phone && errors.phone ? errors.phone : ""}
           />
           <Input
-            onChange={handleChange('fullName')}
-            onBlur={handleBlur('fullName')}
+            onChange={handleChange("fullName")}
+            onBlur={handleBlur("fullName")}
             type="text"
             label="Ad soyad"
             value={values.fullName}
-            errorText={touched.fullName && errors.fullName ? errors.fullName : ''}
+            errorText={
+              touched.fullName && errors.fullName ? errors.fullName : ""
+            }
           />
           <Input
-            onChange={handleChange('email')}
-            onBlur={handleBlur('email')}
+            onChange={handleChange("email")}
+            onBlur={handleBlur("email")}
             type="email"
             label="E-Posta"
             value={values.email}
-            errorText={touched.email && errors.email ? errors.email : ''}
+            errorText={touched.email && errors.email ? errors.email : ""}
           />
           <Input
-            onChange={handleChange('password')}
-            onBlur={handleBlur('password')}
+            onChange={handleChange("password")}
+            onBlur={handleBlur("password")}
             type="password"
             label="Şifre"
             value={values.password}
-            errorText={touched.password && errors.password ? errors.password : ''}
+            errorText={
+              touched.password && errors.password ? errors.password : ""
+            }
           />
           <Checkbox
             checked={isChecked}
@@ -116,11 +128,12 @@ const Register: React.FC = () => {
             description="Getir’in bana özel kampanya, tanıtım ve fırsatlarından haberdar olmak istiyorum."
           />
           <small className="text-grayMid">
-            Kişisel verilere dair Aydınlatma Metni için{' '}
-            <span className={registerStyles.link}>tıkla</span>. Üye olmakla,{' '}
-            <span className={registerStyles.link}>Kullanım koşulları</span>{' '}
-            hükümlerini kabul etmektesin
+            Kişisel verilere dair Aydınlatma Metni için
+            <span className={registerStyles.link}>tıkla</span>. Üye olmakla,
+            <span className={registerStyles.link}>Kullanım koşulları</span>
+            hükümlerini kabul etmektesin.
           </small>
+
           <Button
             text="Kayıt Ol"
             color="primary"

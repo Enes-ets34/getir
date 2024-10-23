@@ -8,14 +8,16 @@ import OrdersView from '@/views/orders/OrdersView';
 import PaymentMethodsView from '@/views/payment-methods/PaymentMethodsView';
 import AddressView from '@/views/address/AddressView';
 import ProfileView from '@/views/profile/ProfileView';
-import {ProfileRouteEnum} from '../../views/profile/profile.types';
-import {useAuthStore} from '@/store/auth';
+import { ProfileRouteEnum } from '@/views/profile/profile.types';
+import { useAuthStore } from '@/store/auth';
 import SkeletonLoader from '@/components/skeleton-loader/SkeletonLoader';
-
-const ProfileScreen: React.FC<any> = ({path}) => {
-  const {user} = useAuthStore();
+interface PageProps {
+  params: { path: ProfileRouteEnum };
+}
+const ProfileScreen: React.FC<PageProps> = ({ params }) => {
+  const { user } = useAuthStore();
   const renderContent = () => {
-    switch (path) {
+    switch (params?.path) {
       case ProfileRouteEnum.Address:
         return <AddressView />;
       case ProfileRouteEnum.Contact:
@@ -36,7 +38,7 @@ const ProfileScreen: React.FC<any> = ({path}) => {
   return (
     <>
       {user && (
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className='flex flex-col sm:flex-row gap-4'>
           <ProfileSidebar />
           {renderContent()}
         </div>

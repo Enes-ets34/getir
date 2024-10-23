@@ -3,7 +3,6 @@ import type {StorybookConfig} from '@storybook/nextjs';
 const config: StorybookConfig = {
   stories: [
     '../app/components/**/*.stories.@(js|jsx|ts|tsx)',
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-onboarding',
@@ -15,6 +14,9 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/nextjs',
     options: {},
+  },
+  webpackFinal: async (config) => {
+    return config;
   },
 };
 export default config;

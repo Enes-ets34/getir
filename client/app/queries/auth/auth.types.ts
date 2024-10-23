@@ -19,5 +19,15 @@ export interface RegisterRequest {
 export interface AuthResponse {
   access_token: string;
   user: User;
-  status?:string
+  status?:string;
+  message?: string;
+}
+export interface AuthErrorResponse extends Error {
+  statusCode: number;
+  timestamp: string;
+  path: string;
+  messages: string[];
+}
+export interface TestTokenResponse {
+  message?:string
 }

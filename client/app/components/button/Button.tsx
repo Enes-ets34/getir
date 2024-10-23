@@ -8,8 +8,8 @@ import { useStyles } from './button.styles';
 const Button: React.FC<ButtonProps> = ({
   onClick,
   text,
-  color = 'primary', // Default primary
-  textColor = 'text-white', // Default text color
+  color = 'primary',
+  textColor = 'text-white',
   disabled = false,
   outlined = false,
   className = '',

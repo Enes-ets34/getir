@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useStyles } from './checkbox.styles';
+import { CheckboxProps } from "./checkbox.types";
 
 const Checkbox: React.FC<CheckboxProps> = ({
   checked,

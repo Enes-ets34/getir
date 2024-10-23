@@ -1,4 +1,4 @@
-interface ModalStore {
+export interface ModalStore {
   isOpen: boolean;
   backButton?: boolean;
   openModal: () => void;

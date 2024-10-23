@@ -12,5 +12,5 @@ export interface AnimatedProps {
   animate?: Variant;
   exit?: Variant;
   transition?: Transition;
-  easeType?: any;
+  easeType?: string;
 }

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -10,9 +14,9 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "outDir": "./dist",
-    "baseUrl": "./app",  
+    "baseUrl": "./app",
     "incremental": true,
     "plugins": [
       {
@@ -20,14 +24,35 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@views/*": ["./views/*"],
-      "@assets/*": ["./assets/*"],
-      "@theme/*": ["./theme/*"],
-      "@store/*": ["./store/*"],
-      "@api/*": ["./api/*"],
+      "@/*": [
+        "./*"
+      ],
+      "@views/*": [
+        "./views/*"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@theme/*": [
+        "./theme/*"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "@api/*": [
+        "./api/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.test.tsx", "jest.config.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "**/*.test.tsx",
+    "jest.config.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

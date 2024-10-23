@@ -1,21 +1,20 @@
-'use client';
-import React, {useEffect} from 'react';
-import {useModalStore} from '@/store/modal';
+import React, { useEffect } from 'react';
+import { useModalStore } from '@/store/modal';
 import Button from '@/components/button/Button';
-import {registerStyles} from '@/components/register-modal/register.styles';
-import {useLoginMutation} from '@/queries/auth/auth.mutation';
-import {useLoadingStore} from '@/store/loading';
+import { registerStyles } from '@/components/register-modal/register.styles';
+import { useLoginMutation } from '@/queries/auth/auth.mutation';
+import { useLoadingStore } from '@/store/loading';
 import Input from '@/components/input/Input';
-import {PasswordProps} from './password.types';
+import { PasswordProps } from './password.types';
 import * as Yup from 'yup';
-import {Formik} from 'formik';
+import { Formik, FormikValues } from 'formik';
 import { passwordStyles } from './password.styles';
 
-const Password: React.FC<PasswordProps> = ({loginPhoneNumber = ''}) => {
-  const {setTitle, setBottom, setBackButton} = useModalStore();
-  const {showLoading, hideLoading} = useLoadingStore();
+const Password: React.FC<PasswordProps> = ({ loginPhoneNumber = '' }) => {
+  const { setTitle, setBottom, setBackButton } = useModalStore();
+  const { showLoading, hideLoading } = useLoadingStore();
   const loginMutation = useLoginMutation();
-  const {isPending} = loginMutation;
+  const { isPending } = loginMutation;
 
   useEffect(() => {
     setBottom(
@@ -37,7 +36,7 @@ const Password: React.FC<PasswordProps> = ({loginPhoneNumber = ''}) => {
     };
   }, []);
 
-  const handleLogin = async (values: any) => {
+  const handleLogin = async (values: FormikValues) => {
     const form = {
       phone: loginPhoneNumber,
       password: values.password,
@@ -46,21 +45,27 @@ const Password: React.FC<PasswordProps> = ({loginPhoneNumber = ''}) => {
   };
 
   useEffect(() => {
-    isPending ? showLoading() : hideLoading();
-  }, [isPending]);
+    if (isPending) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
+  }, [isPending, showLoading, hideLoading]);
+
   const validationSchema = Yup.object({
     password: Yup.string()
       .required('Lütfen şifreni gir.')
       .min(6, 'Şifre en az 6 karakter olmalıdır.'),
   });
+
   return (
     <Formik
-      initialValues={{phone: loginPhoneNumber, password: ''}}
+      initialValues={{ phone: loginPhoneNumber, password: '' }}
       validationSchema={validationSchema}
       onSubmit={handleLogin}
       validateOnBlur={true}
       validateOnChange={true}>
-      {({values, handleChange, handleBlur, errors, touched, submitForm}) => (
+      {({ values, handleChange, handleBlur, errors, touched, submitForm }) => (
         <div className={passwordStyles.wrapper}>
           <p className={passwordStyles.message}>
             Lütfen {loginPhoneNumber} numaralı telefonuna gönderilen tek
