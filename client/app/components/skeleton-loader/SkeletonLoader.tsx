@@ -1,4 +1,3 @@
-// components/SkeletonLoader.tsx
 import React from 'react';
 
 const SkeletonLoader = () => {

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '@user/dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto'; // Auth altında içe aktar
+import { LoginUserDto } from './dto/login-user.dto';
 import { sendJwtToClient } from 'helpers/auth/tokenHelpers.helper';
 import { Response } from 'express';
 import { GetAccessToRouteGuard } from 'middlewares/authorization/auth.middleware';

@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { Matches } from 'class-validator';
-import * as jwt from 'jsonwebtoken'; // jsonwebtoken kütüphanesini içe aktar
+import * as jwt from 'jsonwebtoken';
 
 @Schema({ collection: 'users' })
 export class User extends Document {
@@ -37,7 +37,6 @@ export class User extends Document {
   @Prop({ default: Date.now })
   createdAt: Date;
 
-  // JWT oluşturma fonksiyonu
   generateJwtFromUser(): string {
     const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
 
