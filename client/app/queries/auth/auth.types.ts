@@ -1,14 +1,10 @@
+import { User } from "../users/user.types";
+
 export interface LoginRequest {
   password: string;
   phone?: string;
 }
-export interface User {
-  id: string;
-  fullName: string;
-  email: string;
-  phone?: string;
-  password?:string
-}
+
 export interface RegisterRequest {
   fullName: string;
   email: string;

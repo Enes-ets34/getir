@@ -1,26 +1,32 @@
 'use client';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Input from '../input/Input';
 import Button from '../button/Button';
-import {useModalStore} from '@/store/modal';
-import {Formik, FormikValues} from 'formik';
+import { useModalStore } from '@/store/modal';
+import { Formik, FormikValues } from 'formik';
 import * as Yup from 'yup';
-import {useAuthStore} from '@/store/auth';
+import { useAuthStore } from '@/store/auth';
+import { useUpdateUserMutation } from '@/queries/users/user.mutation';
+import { useLoadingStore } from '@/store/loading';
 
 const UpdateProfile: React.FC = () => {
-  const {setTitle} = useModalStore();
-  const {user} = useAuthStore();
+  const { setTitle } = useModalStore();
+  const { user } = useAuthStore();
+  const { showLoading, hideLoading } = useLoadingStore();
+  const updateProfileMutation = useUpdateUserMutation();
+  const { isPending } = updateProfileMutation;
   useEffect(() => {
     setTitle('Hesap bilgilerini güncelle');
   }, [setTitle]);
-
-  const handleOnClick = (values: FormikValues) => {
+  useEffect(() => {
+    isPending ? showLoading() : hideLoading();
+  }, [isPending]);
+  const handleOnClick = async (values: FormikValues) => {
     const form = {
       email: values.email,
       fullName: values.fullName,
     };
-
-    console.log('kayit:', form);
+    await updateProfileMutation.mutateAsync(form);
   };
 
   const validationSchema = Yup.object({
@@ -42,13 +48,14 @@ const UpdateProfile: React.FC = () => {
       validationSchema={validationSchema}
       onSubmit={handleOnClick}
       validateOnBlur={true}
-      validateOnChange={true}>
-      {({values, handleChange, handleBlur, errors, touched, submitForm}) => (
-        <div className="flex flex-col gap-4">
+      validateOnChange={true}
+    >
+      {({ values, handleChange, handleBlur, errors, touched, submitForm }) => (
+        <div className='flex flex-col gap-4'>
           <Input
             onChange={handleChange('fullName')}
             onBlur={handleBlur('fullName')}
-            type="text"
+            type='text'
             value={values.fullName}
             errorText={
               touched.fullName && errors.fullName ? errors.fullName : ''
@@ -57,7 +64,7 @@ const UpdateProfile: React.FC = () => {
           <Input
             onChange={handleChange('email')}
             onBlur={handleBlur('email')}
-            type="email"
+            type='email'
             value={values.email}
             errorText={touched.email && errors.email ? errors.email : ''}
           />
@@ -65,15 +72,15 @@ const UpdateProfile: React.FC = () => {
             disabled
             onChange={handleChange('phone')}
             onBlur={handleBlur('phone')}
-            type="text"
+            type='text'
             value={values.phone}
             errorText={touched.phone && errors.phone ? errors.phone : ''}
           />
           <Button
-            text="Kaydet"
-            color="primary"
+            text='Kaydet'
+            color='primary'
             onClick={submitForm}
-            className="mt-8"
+            className='mt-8'
           />
         </div>
       )}
