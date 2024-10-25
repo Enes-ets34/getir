@@ -44,6 +44,7 @@ const ProtectedRoute = ({
           setUser(null);
           setAccessToken(null);
           console.error(err);
+          navigation('/' as RouteEnum);
         }
       } else {
         if (isProtected) {

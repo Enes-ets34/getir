@@ -24,7 +24,6 @@ const TabHeader: React.FC = ({}) => {
               <Icon source={"house"} size={{ width: 22, height: 16 }} />
               <p className="text-grayMid font-bold">Ev</p>
               <Icon
-                className=""
                 source={"chevron"}
                 size={{ width: 12, height: 12 }}
               />
