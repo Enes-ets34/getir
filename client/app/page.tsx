@@ -1,37 +1,21 @@
 'use client';
 import { useEffect } from 'react';
-import Button from '@/components/button/Button';
-import {
-  useLogoutMutation,
-  useTestTokenMutation,
-} from './queries/auth/auth.mutation';
+import { useTestTokenMutation } from './queries/auth/auth.mutation';
 import { useLoadingStore } from './store/loading';
+import useNavigation from './utils/handleNavigation';
+import { RoutePaths } from './types/RoutePaths.enum';
 
 export default function Home() {
   const testTokenMutation = useTestTokenMutation();
   const { isPending } = testTokenMutation;
   const { showLoading, hideLoading } = useLoadingStore();
-
-  const logoutMutation = useLogoutMutation();
-
-  const triggerTestTokenMutation = async () => {
-    await testTokenMutation.mutateAsync();
-  };
-  const onClick = async () => {
-    await triggerTestTokenMutation();
-  };
-  const logout = async () => {
-    await logoutMutation.mutateAsync();
-  };
+  const navigation = useNavigation();
   useEffect(() => {
     if (isPending) showLoading();
     else hideLoading();
   }, [isPending]);
-  return (
-    <div>
-      home
-      <Button text='deneme' onClick={onClick} />
-      <Button text='logout' color='secondary' onClick={logout} />
-    </div>
-  );
+  useEffect(() => {
+    navigation(RoutePaths.Categories)
+  }, []);
+  return <div></div>;
 }

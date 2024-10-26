@@ -1,4 +1,4 @@
-import {User} from '@/queries/auth/auth.types';
+import { User } from '@/queries/users/user.types';
 
 export interface AuthState {
   user: User | null;

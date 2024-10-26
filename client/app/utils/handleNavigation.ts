@@ -1,12 +1,12 @@
 'use client';
 
-import {RouteEnum} from '@/components/protected-route/protectedRoutes.types';
+import { RoutePaths } from '@/types/RoutePaths.enum';
 import {useRouter} from 'next/navigation';
 
 const useNavigation = () => {
   const router = useRouter();
 
-  const handleNavigation = (route: RouteEnum) => {
+  const handleNavigation = (route: RoutePaths) => {
     router.push(`${route}`);
   };
 

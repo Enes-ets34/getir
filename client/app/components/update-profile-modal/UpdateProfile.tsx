@@ -19,7 +19,8 @@ const UpdateProfile: React.FC = () => {
     setTitle('Hesap bilgilerini güncelle');
   }, [setTitle]);
   useEffect(() => {
-    isPending ? showLoading() : hideLoading();
+    if (isPending) showLoading();
+    else hideLoading();
   }, [isPending]);
   const handleOnClick = async (values: FormikValues) => {
     const form = {

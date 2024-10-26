@@ -9,7 +9,7 @@ import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { useModalStore } from '@/store/modal';
 import Login from '../login-modal/Login';
 import useNavigation from '@/utils/handleNavigation';
-import { RouteEnum } from './protectedRoutes.types';
+import { RoutePaths } from '@/types/RoutePaths.enum';
 
 const ProtectedRoute = ({
   children,
@@ -44,11 +44,11 @@ const ProtectedRoute = ({
           setUser(null);
           setAccessToken(null);
           console.error(err);
-          navigation('/' as RouteEnum);
+          navigation('/' as RoutePaths);
         }
       } else {
         if (isProtected) {
-          navigation('/' as RouteEnum);
+          navigation('/' as RoutePaths);
           openModal();
           setContent(<Login />);
         }
