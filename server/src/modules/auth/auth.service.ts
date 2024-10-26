@@ -9,8 +9,8 @@ import { User } from '@user/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { generateJwtToken } from 'utils/jwt.utils'; // JWT utils'ini içe aktar
-import { Response } from 'express'; // Express Response türünü içe aktar
+import { generateJwtToken } from 'utils/jwt.utils'; 
+import { Response } from 'express'; 
 
 @Injectable()
 export class AuthService {
@@ -32,7 +32,7 @@ export class AuthService {
     const user = new this.userModel(createUserDto);
     await user.save();
 
-    const token = generateJwtToken(user._id.toString(), user.fullName);
+    const token = generateJwtToken(user._id.toString(), user.fullName,user.isAdmin);
 
     return { user, token };
   }
@@ -56,7 +56,7 @@ export class AuthService {
       throw new UnauthorizedException('Şifre kontrolü sırasında hata oluştu');
     }
 
-    const token = generateJwtToken(user._id.toString(), user.fullName);
+    const token = generateJwtToken(user._id.toString(), user.fullName,user.isAdmin);
 
     user.password = undefined;
 

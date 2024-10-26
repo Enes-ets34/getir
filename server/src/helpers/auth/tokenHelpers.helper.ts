@@ -3,7 +3,7 @@ import { User } from '@user/schemas/user.schema';
 import { generateJwtToken } from 'utils/jwt.utils';
 
 export const sendJwtToClient = (user: User, res: Response) => {
-  const token = generateJwtToken(user._id.toString(), user.fullName);
+  const token = generateJwtToken(user._id.toString(), user.fullName,user.isAdmin);
   const { JWT_COOKIE_EXPIRE } = process.env;
 
   return res
@@ -11,8 +11,8 @@ export const sendJwtToClient = (user: User, res: Response) => {
     .cookie('access_token', token, {
       expires: new Date(Date.now() + parseInt(JWT_COOKIE_EXPIRE) * 60000),
       httpOnly: true,
-      secure: false, // Yerel geliştirme için false
-      sameSite: 'lax', // Genellikle cross-site istekler için güvenli ayar
+      secure: false, 
+      sameSite: 'lax',
     })
     .json({
       status: 'success',

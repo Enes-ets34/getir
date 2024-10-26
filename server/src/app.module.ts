@@ -3,10 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppConfigModule } from '@config/config.module';
 import { AuthModule } from '@auth/auth.module';
 import { UserModule } from '@user/user.module';
+import { CampaignModule } from '@campaign/campaign.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
-import { CorsMiddleware } from '@nest-middlewares/cors';
-import { GetAccessToRouteGuard } from 'middlewares/authorization/auth.middleware';
 
 @Module({
   imports: [
@@ -14,6 +13,7 @@ import { GetAccessToRouteGuard } from 'middlewares/authorization/auth.middleware
     AppConfigModule,
     AuthModule,
     UserModule,
+    CampaignModule,
   ],
   providers: [
     {

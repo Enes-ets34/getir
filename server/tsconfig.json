@@ -24,6 +24,7 @@
     "paths": {
       "@user/*": ["modules/user/*"],
       "@auth/*": ["modules/auth/*"],
+      "@campaign/*": ["modules/campaign/*"],
       "@config/*": ["modules/config/*"]
     }
   },
