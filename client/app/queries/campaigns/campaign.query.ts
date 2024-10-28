@@ -12,7 +12,7 @@ export const useCampaignsQuery = () => {
     staleTime: 1000 * 60 * 5,
   } as UseQueryOptions<CampaignResponse, Error>);
 };
-export const getSingleCampaignQuery = (id: string) => {
+export const useGetSingleCampaignQuery = (id: string) => {
   return useQuery<GetSingleCampaignResponse, Error>({
     queryKey: ['campaign', id],
     queryFn: async () => {

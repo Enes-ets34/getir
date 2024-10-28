@@ -6,7 +6,7 @@ import { useModalStore } from '@/store/modal';
 import { CampaignDetailProps } from './campaignDetail.types';
 import { campaignDetailStyles } from './campaignDetail.styles';
 import Image from '../image/Image';
-import { getSingleCampaignQuery } from '@/queries/campaigns/campaign.query';
+import { useGetSingleCampaignQuery } from '@/queries/campaigns/campaign.query';
 import { useLoadingStore } from '@/store/loading';
 import { useToastStore } from '@/store/toast';
 import { ToastEnum } from '../toast/toast.types';
@@ -21,7 +21,7 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaignId }) => {
     isError,
     isLoading,
     error,
-  } = getSingleCampaignQuery(campaignId);
+  } = useGetSingleCampaignQuery(campaignId);
   useEffect(() => {
     if (isLoading) {
       showLoading();
