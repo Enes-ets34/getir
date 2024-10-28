@@ -62,4 +62,11 @@ export class CampaignController {
   ) {
     return this.campaignService.delete(id);
   }
+  @Get('/:id')
+  @UseGuards(IsAdminGuard)
+  async getCampaignDetail(
+    @Param('id') id: string,
+  ) {
+    return this.campaignService.getSingleCampaign(id);
+  }
 }

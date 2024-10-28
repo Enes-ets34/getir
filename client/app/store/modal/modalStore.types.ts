@@ -6,7 +6,7 @@ export interface ModalStore {
   backButtonOnClick: (callback: () => void) => void;
   content: React.ReactNode;
   bottom: React.ReactNode;
-  title?: string;
+  title?: string | null;
   setContent: (content: React.ReactNode) => void;
   setBottom: (bottom: React.ReactNode) => void;
   setTitle: (title: string) => void;

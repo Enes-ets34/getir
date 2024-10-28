@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import httpRequest from '@api/httpRequest';
-import { CampaignResponse } from './campaign.types';
+import { CampaignResponse, GetSingleCampaignResponse } from './campaign.types';
 
 export const useCampaignsQuery = () => {
   return useQuery<CampaignResponse, Error>({
@@ -9,6 +9,19 @@ export const useCampaignsQuery = () => {
       const response = await httpRequest.get<CampaignResponse>('/campaigns');
       return response.data;
     },
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
   } as UseQueryOptions<CampaignResponse, Error>);
+};
+export const getSingleCampaignQuery = (id: string) => {
+  return useQuery<GetSingleCampaignResponse, Error>({
+    queryKey: ['campaign', id],
+    queryFn: async () => {
+      const response = await httpRequest.get<GetSingleCampaignResponse>(
+        `/campaigns/${id}`
+      );
+      return response.data;
+    },
+    staleTime: 1000 * 60 * 5,
+    enabled: !!id,
+  } as UseQueryOptions<GetSingleCampaignResponse, Error>);
 };

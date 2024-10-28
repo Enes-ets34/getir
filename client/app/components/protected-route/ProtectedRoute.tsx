@@ -38,7 +38,7 @@ const ProtectedRoute = ({
           await testTokenMutation.mutateAsync();
           setUser(user);
           setAccessToken(accessToken);
-        } catch (err) { 
+        } catch (err) {
           localStorage.removeItem('user');
           localStorage.removeItem('access_token');
           setUser(null);
@@ -65,7 +65,7 @@ const ProtectedRoute = ({
     }
   }, [isPending, showLoading, hideLoading]);
 
-  return <div className="container p-5 sm:px-0 py-6 sm:py-12">{children}</div>;
+  return <div className='container p-5 sm:px-0 py-6 md:py-12'>{children}</div>;
 };
 
 export default ProtectedRoute;

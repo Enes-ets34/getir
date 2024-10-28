@@ -14,3 +14,15 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
+.slick-prev:before,
+.slick-next:before {
+  display: none;
+}
+
+.custom-slick .slick-prev {
+  display: none;
+}
+
+.custom-slick .slick-next {
+  display: none;
+}

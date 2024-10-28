@@ -60,4 +60,16 @@ export class CampaignService {
       message: `${deletedCampaign?.title} Kampanya başarıyla silindi...`,
     };
   }
+  async getSingleCampaign(
+    id: string,
+  ): Promise<{ status: string; data: Campaign }> {
+    const campaign = await this.campaignModel.findById(id);
+    if (!campaign) {
+      throw new NotFoundException('Kampanya bulunamadı');
+    }
+    return {
+      status: 'success',
+      data: campaign,
+    };
+  }
 }

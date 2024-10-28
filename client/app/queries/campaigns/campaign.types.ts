@@ -1,6 +1,6 @@
 export interface Campaign {
   _id: string;
-  name: string;
+  title: string;
   description: string;
   createdAt: Date;
   updatedAt: Date;
@@ -11,4 +11,8 @@ export interface Campaign {
 export interface CampaignResponse {
   status: string;
   data: Campaign[];
+}
+export interface GetSingleCampaignResponse {
+  status: string;
+  data: Campaign;
 }
