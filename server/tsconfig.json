@@ -25,6 +25,7 @@
       "@user/*": ["modules/user/*"],
       "@auth/*": ["modules/auth/*"],
       "@campaign/*": ["modules/campaign/*"],
+      "@category/*": ["modules/category/*"],
       "@config/*": ["modules/config/*"]
     }
   },

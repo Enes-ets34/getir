@@ -4,6 +4,8 @@ import { AppConfigModule } from '@config/config.module';
 import { AuthModule } from '@auth/auth.module';
 import { UserModule } from '@user/user.module';
 import { CampaignModule } from '@campaign/campaign.module';
+import { CategoryModule } from '@category/category.module';
+
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
 
@@ -14,6 +16,7 @@ import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
     AuthModule,
     UserModule,
     CampaignModule,
+    CategoryModule,
   ],
   providers: [
     {

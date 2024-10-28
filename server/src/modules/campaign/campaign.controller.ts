@@ -8,7 +8,6 @@ import {
   Param,
   UseGuards,
   Req,
-  ForbiddenException,
 } from '@nestjs/common';
 import { CampaignService } from './campaign.service';
 import { UpdateCampaignDto } from './dto/update-campaign.dto';
