@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CategoriesProps } from './categories.types';
 import Image from '../image/Image';
 import Icon from '../icon/Icon';
@@ -28,7 +28,7 @@ const Categories: React.FC<CategoriesProps> = ({
 
   return (
     <div className={categoriesStyles.wrapper}>
-      <h3 className='font-semibold text-black'>Kategoriler</h3>
+      <h3 className='font-semibold hidden sm:block text-black'>Kategoriler</h3>
       <ul className={categoriesStyles.list}>
         {categories?.map((category: Category) => (
           <React.Fragment key={category?._id}>

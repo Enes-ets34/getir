@@ -12,9 +12,9 @@ export default function CategoriesView({
   setSelectedSubCategory,
 }: CategoriesViewProps) {
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='flex flex-col sm:gap-8'>
       <CampaignBanner campaigns={campaigns} />
-      <div className='flex items-start gap-4'>
+      <div className='flex sm:flex-row flex-col items-start gap-4'>
         <Categories
           categories={categories}
           openCategory={openCategory}

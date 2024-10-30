@@ -1,6 +1,6 @@
 export const categoriesStyles = {
   wrapper:
-    'flex flex-col justify-start w-full sm:w-1/5 gap-2 pb-64 sticky top-36',
+    'flex flex-col justify-start w-full sm:w-1/5 gap-2 pb-64 sm:sticky top-36',
   list: 'shadow-shadowL max-h-[75vh] overflow-auto shadow-shadowCard py-2 rounded-borderRadiusM bg-white',
   categoryItem: 'hover:bg-primaryLight justify-between items-center px-3 py-1',
   image:

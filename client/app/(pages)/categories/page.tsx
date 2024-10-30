@@ -9,11 +9,8 @@ import { useCategoryStore } from '@/store/categories';
 import CategoriesView from '@/views/categories/CategoriesView';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useGetQueryParam } from '@/hooks/useGetQueryParam';
 
 export default function CategoriesScreen() {
-  const router = useRouter();
-  const params = useSearchParams();
   const searchParams = useSearchParams();
   let key = searchParams?.get('key');
   const [openCategory, setOpenCategory] = useState<Category | null>(null);

@@ -54,7 +54,7 @@ const CampaignBanner: React.FC<CampaignProps> = ({ campaigns }) => {
           <Image
             objectFit={'contain'}
             src={campaign?.imageUrl || ''}
-            className='rounded-borderRadiusL'
+            className='sm:rounded-borderRadiusL'
           />
         </div>
       ))}
