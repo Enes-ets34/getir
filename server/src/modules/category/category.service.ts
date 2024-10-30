@@ -51,13 +51,13 @@ export class CategoryService {
   }
 
   async delete(id: string): Promise<{ status: string; message: string }> {
-    const deletedCampaign = await this.categoryModel.findByIdAndDelete(id);
-    if (!deletedCampaign) {
-      throw new NotFoundException('Kampanya bulunamadı');
+    const deletedCategory = await this.categoryModel.findByIdAndDelete(id);
+    if (!deletedCategory) {
+      throw new NotFoundException('Kategori bulunamadı');
     }
     return {
       status: 'success',
-      message: `${deletedCampaign?.title} Kampanya başarıyla silindi...`,
+      message: `${deletedCategory?.title} Kategori başarıyla silindi...`,
     };
   }
 }

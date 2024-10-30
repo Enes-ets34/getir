@@ -12,13 +12,9 @@ import {
 import { CategoryService } from './category.service';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import {
-  GetAccessToRouteGuard,
-  IsAdminGuard,
-} from 'middlewares/authorization/auth.middleware';
+import { GetAccessToRouteGuard, IsAdminGuard } from 'middlewares/authorization/auth.middleware';
 
 @Controller('categories')
-@UseGuards(GetAccessToRouteGuard)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
@@ -28,15 +24,13 @@ export class CategoryController {
   }
 
   @Post('create')
-  @UseGuards(IsAdminGuard)
-  async createCategory(
-    @Body() CreateCategoryDto: CreateCategoryDto,
-  ) {
+  @UseGuards(GetAccessToRouteGuard, IsAdminGuard)
+  async createCategory(@Body() CreateCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(CreateCategoryDto);
   }
 
   @Put('update/:id')
-  @UseGuards(IsAdminGuard)
+  @UseGuards(GetAccessToRouteGuard, IsAdminGuard)
   async updateCategory(
     @Param('id') id: string,
     @Body() UpdateCategoryDto: UpdateCategoryDto,
@@ -45,10 +39,8 @@ export class CategoryController {
   }
 
   @Delete('delete/:id')
-  @UseGuards(IsAdminGuard)
-  async deleteCategory(
-    @Param('id') id: string,
-  ) {
+  @UseGuards(GetAccessToRouteGuard, IsAdminGuard)
+  async deleteCategory(@Param('id') id: string) {
     return this.categoryService.delete(id);
   }
 }

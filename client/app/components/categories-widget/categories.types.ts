@@ -1,11 +1,9 @@
-import { Campaign } from '@/queries/campaigns/campaign.types';
 import { Category, SubCategory } from '@/queries/categories/category.types';
 
-export interface CategoriesViewProps {
-  campaigns: Campaign[];
+export interface CategoriesProps {
   categories: Category[];
   openCategory?: Category;
-  selectedSubCategory?: string;
+  selectedSubCategory?: string | null;
   setOpenCategory?: (category: Category | null) => void;
   setSelectedSubCategory?: (subCategoryId: string | null) => void;
 }
