@@ -1,9 +1,10 @@
-import { Category, SubCategory } from '@/queries/categories/category.types';
+import { Category } from '@/queries/categories/category.types';
 
 export interface CategoriesProps {
   categories: Category[];
   openCategory?: Category;
-  selectedSubCategory?: string | null;
+  selectedSubCategory?: string | null;
   setOpenCategory?: (category: Category | null) => void;
   setSelectedSubCategory?: (subCategoryId: string | null) => void;
+  categoryIsLoading?:boolean
 }

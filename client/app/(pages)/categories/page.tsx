@@ -2,17 +2,17 @@
 
 import { useCampaignsQuery } from '@/queries/campaigns/campaign.query';
 import { useCategoriesQuery } from '@/queries/categories/category.query';
-import { Category, SubCategory } from '@/queries/categories/category.types';
+import { Category } from '@/queries/categories/category.types';
 import { useAuthStore } from '@/store/auth';
 import { useCampaignStore } from '@/store/campaigns';
 import { useCategoryStore } from '@/store/categories';
 import CategoriesView from '@/views/categories/CategoriesView';
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function CategoriesScreen() {
   const searchParams = useSearchParams();
-  let key = searchParams?.get('key');
+  const key = searchParams?.get('key');
   const [openCategory, setOpenCategory] = useState<Category | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null
@@ -26,8 +26,11 @@ export default function CategoriesScreen() {
     isError: campaignQueryIsError,
     refetch: campaignRefetch,
   } = useCampaignsQuery();
-  const { data: categoriesQueryData, isSuccess: categoryQueryIsSuccess } =
-    useCategoriesQuery();
+  const {
+    data: categoriesQueryData,
+    isSuccess: categoryQueryIsSuccess,
+    isLoading: categoryIsLoading,
+  } = useCategoriesQuery();
 
   useEffect(() => {
     if (openCategory?.subCategories && setSelectedSubCategory) {
@@ -74,6 +77,7 @@ export default function CategoriesScreen() {
     <CategoriesView
       campaigns={campaigns}
       categories={categories}
+      categoryIsLoading={categoryIsLoading}
       openCategory={openCategory as Category}
       selectedSubCategory={(selectedSubCategory as string) || ''}
       setOpenCategory={setOpenCategory}

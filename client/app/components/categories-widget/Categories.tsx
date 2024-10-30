@@ -14,18 +14,25 @@ const Categories: React.FC<CategoriesProps> = ({
   selectedSubCategory,
   setOpenCategory,
   setSelectedSubCategory,
+  categoryIsLoading,
 }) => {
   const router = useRouter();
   const toggleCategory = (category: Category) => {
     if (openCategory?._id === category?._id) {
-      setOpenCategory && setOpenCategory(null);
+      if (setOpenCategory) {
+        setOpenCategory(null);
+      }
     } else {
-      setOpenCategory && setOpenCategory(category);
-      router?.replace(`/categories?key=${category?.slug}`);
+      if (setOpenCategory) {
+        setOpenCategory(category);
+      }
+      if (router) {
+        router.replace(`/categories?key=${category?.slug}`);
+      }
     }
   };
   if (categories?.length === 0) return null;
-
+  if (categoryIsLoading) return <div>loading...</div>;
   return (
     <div className={categoriesStyles.wrapper}>
       <h3 className='font-semibold hidden sm:block text-black'>Kategoriler</h3>

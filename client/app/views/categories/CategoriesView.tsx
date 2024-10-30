@@ -1,7 +1,9 @@
+'use client'
+
+import React from 'react';
 import CampaignBanner from '@/components/campaign-banner/CampaignBanner';
-import { CategoriesViewProps } from './categoriesView.types';
 import Categories from '@/components/categories-widget/Categories';
-import React, { useState } from 'react';
+import { CategoriesViewProps } from './categoriesView.types';
 
 export default function CategoriesView({
   campaigns,
@@ -10,6 +12,7 @@ export default function CategoriesView({
   selectedSubCategory,
   setOpenCategory,
   setSelectedSubCategory,
+  categoryIsLoading
 }: CategoriesViewProps) {
   return (
     <div className='flex flex-col sm:gap-8'>
@@ -21,6 +24,7 @@ export default function CategoriesView({
           selectedSubCategory={selectedSubCategory as string}
           setOpenCategory={setOpenCategory}
           setSelectedSubCategory={setSelectedSubCategory}
+          categoryIsLoading={categoryIsLoading}
         />
         <div className='w-1/2'>
           {Array.from({ length: 128 })?.map((item, index) => (
