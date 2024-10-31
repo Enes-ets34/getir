@@ -26,6 +26,7 @@
       "@auth/*": ["modules/auth/*"],
       "@campaign/*": ["modules/campaign/*"],
       "@category/*": ["modules/category/*"],
+      "@product/*": ["modules/product/*"],
       "@config/*": ["modules/config/*"]
     }
   },

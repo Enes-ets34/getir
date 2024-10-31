@@ -5,18 +5,20 @@ import { AuthModule } from '@auth/auth.module';
 import { UserModule } from '@user/user.module';
 import { CampaignModule } from '@campaign/campaign.module';
 import { CategoryModule } from '@category/category.module';
+import { ProductModule } from '@product/product.module';
 
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/getir-clone', {}),
+    MongooseModule.forRoot(process.env.MONGO_URI, {}),
     AppConfigModule,
     AuthModule,
     UserModule,
     CampaignModule,
     CategoryModule,
+    ProductModule,
   ],
   providers: [
     {

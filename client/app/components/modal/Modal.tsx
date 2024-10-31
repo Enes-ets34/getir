@@ -22,7 +22,7 @@ const Modal: React.FC = () => {
           transition={{duration: 0.5, ease: 'linear'}}>
           <div
             className={`${modalStyles.container} ${
-              bottom ?? 'rounded-b-borderRadiusL'
+             !bottom ? 'rounded-b-borderRadiusL' : ' '
             }`}>
             {backButton && (
               <button className={modalStyles.backButton}>
