@@ -1,14 +1,22 @@
 'use client';
 
-import { useCampaignsQuery } from '@/queries/campaigns/campaign.query';
-import { useCategoriesQuery } from '@/queries/categories/category.query';
-import { Category } from '@/queries/categories/category.types';
-import { useAuthStore } from '@/store/auth';
-import { useCampaignStore } from '@/store/campaigns';
-import { useCategoryStore } from '@/store/categories';
-import CategoriesView from '@/views/categories/CategoriesView';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+
+import { useCampaignsQuery } from '@/queries/campaigns/campaign.query';
+import { useCategoriesQuery } from '@/queries/categories/category.query';
+import { useFilterProductsQuery } from '@/queries/products/product.query';
+
+import { SubCategoryProducts } from '@/store/product/productStore.types';
+import { Category } from '@/queries/categories/category.types';
+
+import { useAuthStore } from '@/store/auth';
+import { useCampaignStore } from '@/store/campaigns';
+import { useProductStore } from '@/store/product';
+import { useCategoryStore } from '@/store/categories';
+import { useLoadingStore } from '@/store/loading';
+
+import CategoriesView from '@/views/categories/CategoriesView';
 
 export default function CategoriesScreen() {
   const searchParams = useSearchParams();
@@ -17,15 +25,26 @@ export default function CategoriesScreen() {
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     null
   );
+
   const { setCampaigns, campaigns } = useCampaignStore();
   const { setCategories, categories } = useCategoryStore();
+  const { setProducts, products } = useProductStore();
+  const { showLoading, hideLoading } = useLoadingStore();
+
   const { user } = useAuthStore();
   const {
     data: campaignsQueryData,
     isSuccess: campaignQueryIsSuccess,
     isError: campaignQueryIsError,
     refetch: campaignRefetch,
+    isLoading: campaignQueryIsLoading,
   } = useCampaignsQuery();
+  const {
+    data: productsQueryData,
+    isSuccess: productQueryIsSuccess,
+    isLoading: productIsLoading,
+    refetch: productQueryRefetch,
+  } = useFilterProductsQuery(openCategory?._id as string);
   const {
     data: categoriesQueryData,
     isSuccess: categoryQueryIsSuccess,
@@ -35,6 +54,10 @@ export default function CategoriesScreen() {
   useEffect(() => {
     if (openCategory?.subCategories && setSelectedSubCategory) {
       setSelectedSubCategory(openCategory?.subCategories[0]?._id || null);
+      productQueryRefetch();
+      if (Array.isArray(productsQueryData?.data)) {
+        setProducts(productsQueryData?.data);
+      }
     }
   }, [openCategory, setSelectedSubCategory, key]);
   useEffect(() => {
@@ -67,16 +90,28 @@ export default function CategoriesScreen() {
     if (categoryQueryIsSuccess) {
       setCategories(categoriesQueryData.data);
     }
+    if (productQueryIsSuccess && Array.isArray(productsQueryData?.data)) {
+      setProducts(productsQueryData.data);
+    }
   }, [
     campaignQueryIsSuccess,
     campaignQueryIsError,
     categoryQueryIsSuccess,
+    productQueryIsSuccess,
     user,
   ]);
+  useEffect(() => {
+    if (campaignQueryIsLoading || productIsLoading || categoryIsLoading) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
+  }, [categoryIsLoading, campaignQueryIsLoading, productIsLoading]);
   return (
     <CategoriesView
       campaigns={campaigns}
       categories={categories}
+      products={(products as SubCategoryProducts[]) || []}
       categoryIsLoading={categoryIsLoading}
       openCategory={openCategory as Category}
       selectedSubCategory={(selectedSubCategory as string) || ''}

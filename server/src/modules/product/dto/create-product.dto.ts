@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsMongoId, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsMongoId,
+  IsOptional,
+  IsNumber,
+  Min,
+} from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -20,4 +27,14 @@ export class CreateProductDto {
   @IsMongoId()
   @IsNotEmpty()
   subCategory: string;
+
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @IsNotEmpty()
+  price: number;
+
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @IsNotEmpty()
+  discountedPrice: number;
 }

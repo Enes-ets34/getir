@@ -99,6 +99,8 @@ export class ProductService {
         imageUrl: product.imageUrl,
         description: product.description,
         slug: product.slug,
+        price:product.price,
+        discountedPrice:product?.discountedPrice
       });
 
       return acc;

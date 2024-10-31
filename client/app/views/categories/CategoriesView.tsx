@@ -1,9 +1,11 @@
-'use client'
+'use client';
 
 import React from 'react';
 import CampaignBanner from '@/components/campaign-banner/CampaignBanner';
 import Categories from '@/components/categories-widget/Categories';
 import { CategoriesViewProps } from './categoriesView.types';
+import Products from '@/components/products-widget/Products';
+import { SubCategoryProducts } from '@/store/product/productStore.types';
 
 export default function CategoriesView({
   campaigns,
@@ -12,12 +14,13 @@ export default function CategoriesView({
   selectedSubCategory,
   setOpenCategory,
   setSelectedSubCategory,
-  categoryIsLoading
+  categoryIsLoading,
+  products,
 }: CategoriesViewProps) {
   return (
     <div className='flex flex-col sm:gap-8'>
       <CampaignBanner campaigns={campaigns} />
-      <div className='flex sm:flex-row flex-col items-start gap-4'>
+      <div className='flex sm:flex-row justify-start flex-col items-start sm:gap-12 lg:gap-4'>
         <Categories
           categories={categories}
           openCategory={openCategory}
@@ -26,13 +29,11 @@ export default function CategoriesView({
           setSelectedSubCategory={setSelectedSubCategory}
           categoryIsLoading={categoryIsLoading}
         />
-        <div className='w-1/2'>
-          {Array.from({ length: 128 })?.map((item, index) => (
-            <p key={index} className='p-5 bg-sky-200'>
-              product item
-            </p>
-          ))}
-        </div>
+        <Products
+          products={products as SubCategoryProducts[]}
+          selectedSubCategory={(selectedSubCategory as string) || ''}
+        />
+        <div className='hidden lg:block'>Cart</div>
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ import account from '@assets/icons/account.svg';
 import mail from '@assets/icons/mail.svg';
 import phone from '@assets/icons/phone.svg';
 import edit from '@assets/icons/edit.svg';
+import plus from '@assets/icons/plus.svg';
+import heart from '@assets/icons/heart.svg';
 
 export const Icons = {
   language,
@@ -36,6 +38,8 @@ export const Icons = {
   mail,
   phone,
   edit,
+  plus,
+  heart,
 };
 
 export type icons = keyof typeof Icons;

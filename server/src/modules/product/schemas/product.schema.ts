@@ -21,6 +21,12 @@ export class Product extends Document {
 
   @Prop({ type: Types.ObjectId, ref: 'SubCategory', required: true })
   subCategory: Types.ObjectId;
+
+  @Prop()
+  price: number;
+
+  @Prop()
+  discountedPrice: number;
 }
 
 const ProductSchema = SchemaFactory.createForClass(Product);
