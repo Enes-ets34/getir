@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Product } from './schemas/product.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -99,8 +99,8 @@ export class ProductService {
         imageUrl: product.imageUrl,
         description: product.description,
         slug: product.slug,
-        price:product.price,
-        discountedPrice:product?.discountedPrice
+        price: product.price,
+        discountedPrice: product?.discountedPrice,
       });
 
       return acc;
@@ -111,9 +111,18 @@ export class ProductService {
     const product = await this.productModel.findOne({ slug }).exec();
 
     if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    return product;
+  }
+  async getSingleProductById(id: Types.ObjectId): Promise<Product> {
+    const product = await this.productModel.findOne({ _id: id }).exec();
+    if (!product) {
       throw new NotFoundException('Product not found'); 
     }
 
     return product; 
-  }
+}
+
 }

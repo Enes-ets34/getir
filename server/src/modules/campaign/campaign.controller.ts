@@ -7,7 +7,6 @@ import {
   Body,
   Param,
   UseGuards,
-  Req,
 } from '@nestjs/common';
 import { CampaignService } from './campaign.service';
 import { UpdateCampaignDto } from './dto/update-campaign.dto';
@@ -16,14 +15,7 @@ import {
   GetAccessToRouteGuard,
   IsAdminGuard,
 } from 'middlewares/authorization/auth.middleware';
-import { Request } from 'express';
-interface IGetUserCampaignRequest extends Request {
-  user?: {
-    id: string;
-    full_name: string;
-    isAdmin?: boolean;
-  };
-}
+
 @Controller('campaigns')
 @UseGuards(GetAccessToRouteGuard)
 export class CampaignController {
@@ -36,17 +28,13 @@ export class CampaignController {
 
   @Post('create')
   @UseGuards(IsAdminGuard)
-  async createCampaign(
-    @Req() req: IGetUserCampaignRequest,
-    @Body() createCampaignDto: CreateCampaignDto,
-  ) {
+  async createCampaign(@Body() createCampaignDto: CreateCampaignDto) {
     return this.campaignService.create(createCampaignDto);
   }
 
   @Put('update/:id')
   @UseGuards(IsAdminGuard)
   async updateCampaign(
-    @Req() req: IGetUserCampaignRequest,
     @Param('id') id: string,
     @Body() updateCampaignDto: UpdateCampaignDto,
   ) {
@@ -55,17 +43,12 @@ export class CampaignController {
 
   @Delete('delete/:id')
   @UseGuards(IsAdminGuard)
-  async deleteCampaign(
-    @Req() req: IGetUserCampaignRequest,
-    @Param('id') id: string,
-  ) {
+  async deleteCampaign(@Param('id') id: string) {
     return this.campaignService.delete(id);
   }
   @Get('/:id')
   @UseGuards(IsAdminGuard)
-  async getCampaignDetail(
-    @Param('id') id: string,
-  ) {
+  async getCampaignDetail(@Param('id') id: string) {
     return this.campaignService.getSingleCampaign(id);
   }
 }

@@ -6,6 +6,7 @@ import { UserModule } from '@user/user.module';
 import { CampaignModule } from '@campaign/campaign.module';
 import { CategoryModule } from '@category/category.module';
 import { ProductModule } from '@product/product.module';
+import { CartModule } from './modules/cart/cart.module';
 
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
@@ -19,6 +20,7 @@ import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
     CampaignModule,
     CategoryModule,
     ProductModule,
+    CartModule,
   ],
   providers: [
     {

@@ -17,5 +17,6 @@ import { CategorySchema, SubCategorySchema } from '@category/schemas/category.sc
   ],
   controllers: [ProductController],
   providers: [ProductService, GetAccessToRouteGuard, IsAdminGuard],
+  exports: [ProductService]
 })
 export class ProductModule {}
