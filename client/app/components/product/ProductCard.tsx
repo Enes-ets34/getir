@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ProductProps } from './product.types';
 import Icon from '../icon/Icon';
 import Colors from '@/theme/Colors';
@@ -16,10 +16,7 @@ import {
 } from '@/queries/cart/cart.mutation';
 import { useIsDeleteCart } from '@/hooks/useIsDeleteCart';
 
-const ProductCard: React.FC<ProductProps> = ({
-  product,
-  user,
-}) => {
+const ProductCard: React.FC<ProductProps> = ({ product, user }) => {
   const { products } = useCartStore();
   const { increment, decrement } = useUpdateCartMutation();
   const createCartMutation = useCreateCartMutation();
@@ -60,7 +57,6 @@ const ProductCard: React.FC<ProductProps> = ({
         <button
           onClick={() => {
             if (products?.length > 0) {
-
               handleIncrease();
             } else {
               createCartMutation.mutate({

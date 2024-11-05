@@ -13,9 +13,9 @@ import { useModalStore } from '@/store/modal';
 import CampaignDetail from '../campaign-detail-modal/CampaignDetail';
 
 const CampaignBanner: React.FC<CampaignProps> = ({ campaigns }) => {
-  const { openModal,setContent } = useModalStore();
+  const { openModal, setContent } = useModalStore();
   const handleOnClick = (campaignId: string): void => {
-    openModal()
+    openModal();
     setContent(<CampaignDetail campaignId={campaignId} />);
   };
   if (campaigns?.length === 0) return null;
@@ -45,19 +45,20 @@ const CampaignBanner: React.FC<CampaignProps> = ({ campaigns }) => {
         ),
       }}
     >
-      {campaigns.concat(campaigns).map(campaign => (
-        <div
-          onClick={() => handleOnClick(campaign._id)}
-          key={campaign?._id}
-          className={campaignBannerStyles.campaignItem}
-        >
-          <Image
-            objectFit={'contain'}
-            src={campaign?.imageUrl || ''}
-            className='sm:rounded-borderRadiusL'
-          />
-        </div>
-      ))}
+      {campaigns &&
+        campaigns.map(campaign => (
+          <div
+            onClick={() => handleOnClick(campaign._id)}
+            key={campaign?._id}
+            className={campaignBannerStyles.campaignItem}
+          >
+            <Image
+              objectFit={'contain'}
+              src={campaign?.imageUrl || ''}
+              className='sm:rounded-borderRadiusL'
+            />
+          </div>
+        ))}
     </Slider>
   );
 };

@@ -12,6 +12,7 @@ const CartList: React.FC<CartProps> = ({
     <ul className='py-2 flex flex-col'>
       {products?.map((item: CartProduct, index) => (
         <CartListItem
+          key={item?._id}
           products={products}
           item={item}
           className={`transition-none ${

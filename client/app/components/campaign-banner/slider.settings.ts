@@ -11,6 +11,7 @@ export const sliderSettings = {
     {
       breakpoint: 1024,
       settings: {
+        infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
       },

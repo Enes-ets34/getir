@@ -10,9 +10,8 @@ const CartListItem: React.FC<CartItemProps> = ({
   products,
 }) => {
   const { increment, decrement } = useUpdateCartMutation();
-  const isDeleteCart: boolean = item?.product?._id
-    ? useIsDeleteCart(products, item.product._id)
-    : false;
+  const isDeleteCart = useIsDeleteCart(products, item?.product?._id || '');
+
 
   const handleIncrease = () => {
     if (item) {
@@ -38,7 +37,7 @@ const CartListItem: React.FC<CartItemProps> = ({
             ? item?.product.title.slice(0, 15) + '...'
             : item?.product.title}
         </p>
-        <p className='text-primary font-semibold'>₺{item?.product.price}</p>
+        <p className='text-primary font-semibold'>₺{item?.product.discountedPrice || item?.product.price}</p>
       </span>
       <Counter
         quantity={item?.quantity || 0}

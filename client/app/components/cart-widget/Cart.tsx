@@ -1,4 +1,3 @@
-import { CartProduct } from '@/queries/cart/cart.types';
 import Icon from '../icon/Icon';
 import { CartProps } from './cart.types';
 import { cartStyles } from './cart.styles';

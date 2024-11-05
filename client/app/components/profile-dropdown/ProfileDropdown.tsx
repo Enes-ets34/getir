@@ -13,10 +13,9 @@ import { useEffect } from 'react';
 import { useLogoutMutation } from '@/queries/auth/auth.mutation';
 import { useLoadingStore } from '@/store/loading';
 import { RouteEnum } from '../protected-route/protectedRoutes.types';
-import Link from 'next/link';
 import { useCartStore } from '@/store/cart';
 import { GetCartResponse } from '@/queries/cart/cart.types';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const ProfileDropdown = ({
   isOpen,

@@ -99,7 +99,7 @@ export const useDeleteCartMutation = () => {
       const response = await httpRequest.delete<DeleteCartResponse>('/cart');
       return response.data;
     },
-    onSuccess: (data: DeleteCartResponse) => {
+    onSuccess: () => {
       setCart({} as GetCartResponse);
     },
     onError: (error: Error) => {

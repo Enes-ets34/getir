@@ -30,8 +30,8 @@ export interface CartResponse {
   status?: string;
   data?: GetCartResponse;
 }
-export interface UpdateCartResponse extends CartResponse {}
-export interface CreateCartResponse extends CartResponse {}
+export type UpdateCartResponse = CartResponse;
+export type CreateCartResponse = CartResponse;
 export interface DeleteCartResponse {
   message?: string;
 }

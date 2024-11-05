@@ -18,7 +18,6 @@ import { useLoadingStore } from '@/store/loading';
 import { useCartStore } from '@/store/cart';
 
 import CategoriesView from '@/views/categories/CategoriesView';
-import { useGetCartQuery } from '@/queries/cart/cart.query';
 
 export default function CategoriesScreen() {
   const searchParams = useSearchParams();

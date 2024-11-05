@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { tabHeaderStyles } from './tab-header.styles';
 import Icon from '@/components/icon/Icon';
 import Input from '@/components/input/Input';
-import Link from 'next/link';
-import Button from '@/components/button/Button';
+import ProductsDropdown from '@/components/products-dropdown/ProductsDropdown';
 import { useCartStore } from '@/store/cart';
 import { useAuthStore } from '@/store/auth';
 import GoToCartButton from '@/components/go-to-cart-button/GoToCartButton';
@@ -13,6 +12,7 @@ import useMediaQuery, { ScreenSizes } from '@/hooks/useMediaQuery';
 import { useRouter } from 'next/navigation';
 
 const TabHeader: React.FC = ({}) => {
+  const [dropdown, setDropdown] = useState<boolean>(false);
   const { products, totalPrice } = useCartStore();
   const router = useRouter();
   const { user } = useAuthStore();
@@ -20,6 +20,7 @@ const TabHeader: React.FC = ({}) => {
   const handleOnClick = () => {
     console.log('clicked...');
   };
+
   return (
     <div className={tabHeaderStyles.wrapperStyle}>
       <div className={tabHeaderStyles.container}>
@@ -49,10 +50,19 @@ const TabHeader: React.FC = ({}) => {
           </div>
         </div>
         {!!user && !!products && products?.length > 0 && (
-          <div className={tabHeaderStyles.cartContainer}>
+          <div
+            onClick={() => setDropdown(prev => !prev)}
+            className={tabHeaderStyles.cartContainer}
+          >
             <div className={tabHeaderStyles.cartIcon}>
               <Icon source={'bag'} size={{ width: 34, height: 34 }} />
             </div>
+            {!isMobileScreen && (
+              <ProductsDropdown
+                isOpen={dropdown}
+                setDropdown={() => setDropdown(prev => !prev)}
+              />
+            )}
             {isMobileScreen ? (
               <GoToCartButton
                 handleOnClick={() => handleOnClick}

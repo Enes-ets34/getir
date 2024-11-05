@@ -38,7 +38,7 @@ const ProfileScreen: React.FC<PageProps> = ({ params }) => {
   return (
     <>
       {user && (
-        <div className='flex flex-col sm:flex-row gap-4'>
+        <div className='flex flex-col sm:flex-row gap-4 pt-10'>
           <ProfileSidebar />
           {renderContent()}
         </div>
