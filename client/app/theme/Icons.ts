@@ -18,6 +18,10 @@ import phone from '@assets/icons/phone.svg';
 import edit from '@assets/icons/edit.svg';
 import plus from '@assets/icons/plus.svg';
 import heart from '@assets/icons/heart.svg';
+import bag from '@assets/icons/bag.svg';
+import bag_lilac from '@assets/icons/bag-lilac.svg';
+import minus from '@assets/icons/minus.svg';
+import delete_1 from '@assets/icons/delete-1.svg';
 
 export const Icons = {
   language,
@@ -40,6 +44,10 @@ export const Icons = {
   edit,
   plus,
   heart,
+  bag,
+  bag_lilac,
+  minus,
+  delete_1,
 };
 
 export type icons = keyof typeof Icons;

@@ -14,6 +14,9 @@ import { useLogoutMutation } from '@/queries/auth/auth.mutation';
 import { useLoadingStore } from '@/store/loading';
 import { RouteEnum } from '../protected-route/protectedRoutes.types';
 import Link from 'next/link';
+import { useCartStore } from '@/store/cart';
+import { GetCartResponse } from '@/queries/cart/cart.types';
+import { usePathname, useRouter } from 'next/navigation';
 
 const ProfileDropdown = ({
   isOpen,
@@ -22,16 +25,23 @@ const ProfileDropdown = ({
   isOpen: boolean;
   setDropdown: () => void;
 }) => {
+  const router = useRouter();
   const isSmallScreen = useMediaQuery(ScreenSizes.Small);
   const logoutMutation = useLogoutMutation();
+  const { isSuccess, isError } = logoutMutation;
   const { showLoading, hideLoading } = useLoadingStore();
-  const { isPending } = logoutMutation;
+  const { setCart } = useCartStore();
   const { user } = useAuthStore();
+  const { isPending } = logoutMutation;
 
   const logout = async () => {
     await logoutMutation.mutateAsync();
   };
-
+  useEffect(() => {
+    if (isSuccess || isError) {
+      setCart({} as GetCartResponse);
+    }
+  }, [isSuccess, isError]);
   useEffect(() => {
     if (isPending) {
       showLoading();
@@ -41,25 +51,27 @@ const ProfileDropdown = ({
   }, [isPending]);
 
   if (!isOpen) return null;
-  
+
   return (
     <>
       {isOpen && (
         <div
           onClick={() => setDropdown()}
-          className={`${isSmallScreen ? modalStyles.overlay : ''} z-[99]`}>
+          className={`${isSmallScreen ? modalStyles.overlay : ''} z-[99]`}
+        >
           <AnimatePresence>
             <Animated
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}>
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
               <div className={profileDropdownStyles.wrapper}>
                 <div className={profileDropdownStyles.container}>
-                  <Link
-                    href={`${RouteEnum.Profile}`}
-                    prefetch={true}
-                    className={profileDropdownStyles.header}>
+                  <li
+                    onClick={() => router?.replace('/' + RouteEnum.Profile)}
+                    className={profileDropdownStyles.header}
+                  >
                     <div className={profileDropdownStyles.avatar}>
                       <Icon
                         source={'account'}
@@ -67,10 +79,10 @@ const ProfileDropdown = ({
                         size={{ width: 26, height: 26 }}
                       />
                     </div>
-                    <div className="flex flex-col">
+                    <div className='flex flex-col'>
                       {user && <span>{user?.fullName}</span>}
                       {user && (
-                        <small className="font-semibold text-grayStorm">
+                        <small className='font-semibold text-grayStorm'>
                           {user?.phone}
                         </small>
                       )}
@@ -78,7 +90,8 @@ const ProfileDropdown = ({
                     {isSmallScreen && (
                       <button
                         onClick={setDropdown}
-                        className={modalStyles.closeButton}>
+                        className={modalStyles.closeButton}
+                      >
                         <Icon
                           source={'close'}
                           size={{ width: 10, height: 10 }}
@@ -86,18 +99,20 @@ const ProfileDropdown = ({
                         />
                       </button>
                     )}
-                  </Link>
+                  </li>
                   <ul className={profileDropdownStyles.list}>
                     {listItems.map((listItem: ListItemType) => (
-                      <Link
-                        href={`${RouteEnum.Profile}/${listItem?.path}`}
+                      <li
+                        onClick={() =>
+                          router?.push(`/profile/${listItem.path}`)
+                        }
                         key={listItem.id}
-                        prefetch={true}
-                        className={profileDropdownStyles.listItem}>
+                        className={profileDropdownStyles.listItem}
+                      >
                         <p className={profileDropdownStyles.listItemText}>
                           {listItem.text}
                         </p>
-                      </Link>
+                      </li>
                     ))}
                   </ul>
                   <div className={profileDropdownStyles.bottom}>
@@ -105,7 +120,8 @@ const ProfileDropdown = ({
                       onClick={() => {
                         logout();
                       }}
-                      className={profileDropdownStyles.listItem}>
+                      className={profileDropdownStyles.listItem}
+                    >
                       <button className={profileDropdownStyles.listItemText}>
                         Çıkış yap
                       </button>

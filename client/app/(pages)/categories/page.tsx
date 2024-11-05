@@ -15,8 +15,10 @@ import { useCampaignStore } from '@/store/campaigns';
 import { useProductStore } from '@/store/product';
 import { useCategoryStore } from '@/store/categories';
 import { useLoadingStore } from '@/store/loading';
+import { useCartStore } from '@/store/cart';
 
 import CategoriesView from '@/views/categories/CategoriesView';
+import { useGetCartQuery } from '@/queries/cart/cart.query';
 
 export default function CategoriesScreen() {
   const searchParams = useSearchParams();
@@ -30,8 +32,11 @@ export default function CategoriesScreen() {
   const { setCategories, categories } = useCategoryStore();
   const { setProducts, products } = useProductStore();
   const { showLoading, hideLoading } = useLoadingStore();
+  const { totalPrice } = useCartStore();
+  const cartProducts = useCartStore(state => state.products);
 
   const { user } = useAuthStore();
+
   const {
     data: campaignsQueryData,
     isSuccess: campaignQueryIsSuccess,
@@ -101,12 +106,17 @@ export default function CategoriesScreen() {
     user,
   ]);
   useEffect(() => {
-    if (campaignQueryIsLoading || productIsLoading || categoryIsLoading) {
+    if (
+      (user && campaignQueryIsLoading) ||
+      productIsLoading ||
+      categoryIsLoading
+    ) {
       showLoading();
     } else {
       hideLoading();
     }
   }, [categoryIsLoading, campaignQueryIsLoading, productIsLoading]);
+
   return (
     <CategoriesView
       campaigns={campaigns}
@@ -117,6 +127,8 @@ export default function CategoriesScreen() {
       selectedSubCategory={(selectedSubCategory as string) || ''}
       setOpenCategory={setOpenCategory}
       setSelectedSubCategory={setSelectedSubCategory}
+      cartProducts={cartProducts}
+      totalPrice={totalPrice}
     />
   );
 }

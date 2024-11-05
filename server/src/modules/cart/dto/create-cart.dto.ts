@@ -12,7 +12,7 @@ import { Types } from 'mongoose';
 export class ProductItemDto {
   @IsMongoId()
   @IsNotEmpty()
-  productId: Types.ObjectId | string
+  product: Types.ObjectId | string
 
   @IsNumber()
   @IsNotEmpty()

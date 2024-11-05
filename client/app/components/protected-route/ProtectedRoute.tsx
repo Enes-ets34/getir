@@ -17,15 +17,16 @@ const ProtectedRoute = ({
   children: React.ReactNode;
 }>) => {
   const router = useRouter();
-  const path = usePathname();
   const navigation = useNavigation();
-  const { setUser, setAccessToken } = useAuthStore();
-  const { showLoading, hideLoading } = useLoadingStore();
+  const path = usePathname();
+
   const testTokenMutation = useTestTokenMutation();
-  const { openModal, setContent } = useModalStore();
   const { isPending } = testTokenMutation;
 
   const isProtected = useProtectedRoute(path);
+  const { setUser, setAccessToken } = useAuthStore();
+  const { showLoading, hideLoading } = useLoadingStore();
+  const { openModal, setContent } = useModalStore();
 
   useEffect(() => {
     const tokenCheck = async () => {
@@ -48,7 +49,7 @@ const ProtectedRoute = ({
         }
       } else {
         if (isProtected) {
-          navigation('/' as RoutePaths);
+          navigation(RoutePaths.Home);
           openModal();
           setContent(<Login />);
         }

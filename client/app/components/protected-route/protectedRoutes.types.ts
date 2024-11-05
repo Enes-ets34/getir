@@ -1,3 +1,3 @@
 export enum RouteEnum {
-  Profile = '/profile',
+  Profile = 'profile',
 }

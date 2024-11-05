@@ -6,6 +6,7 @@ import Categories from '@/components/categories-widget/Categories';
 import { CategoriesViewProps } from './categoriesView.types';
 import Products from '@/components/products-widget/Products';
 import { SubCategoryProducts } from '@/store/product/productStore.types';
+import Cart from '@/components/cart-widget/Cart';
 
 export default function CategoriesView({
   campaigns,
@@ -16,6 +17,8 @@ export default function CategoriesView({
   setSelectedSubCategory,
   categoryIsLoading,
   products,
+  cartProducts,
+  totalPrice,
 }: CategoriesViewProps) {
   return (
     <div className='flex flex-col sm:gap-8'>
@@ -33,7 +36,10 @@ export default function CategoriesView({
           products={products as SubCategoryProducts[]}
           selectedSubCategory={(selectedSubCategory as string) || ''}
         />
-        <div className='hidden lg:block'>Cart</div>
+        <Cart
+          products={cartProducts || []}
+          totalPrice={totalPrice || 0}
+        />
       </div>
     </div>
   );

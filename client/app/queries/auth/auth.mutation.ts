@@ -14,11 +14,18 @@ import { useModalStore } from '@/store/modal';
 import { useLoadingStore } from '@/store/loading';
 import { useRouter } from 'next/navigation';
 import { User } from '../users/user.types';
+import { useGetCartQuery } from '../cart/cart.query';
+import { useCartStore } from '@/store/cart';
+
 export const useLoginMutation = () => {
+  const { refetch: refetchCart } = useGetCartQuery();
+
   const { setUser, setAccessToken } = useAuthStore();
   const { addToast } = useToastStore();
   const { closeModal } = useModalStore();
   const { hideLoading } = useLoadingStore();
+  const { setCart } = useCartStore();
+
   return useMutation<AuthResponse, Error, LoginRequest>({
     mutationFn: async (loginData: LoginRequest) => {
       const response = await httpRequest.post<AuthResponse>(
@@ -27,13 +34,18 @@ export const useLoginMutation = () => {
       );
       return response.data;
     },
-    onSuccess: (data: AuthResponse) => {
+    onSuccess: async (data: AuthResponse) => {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user as User);
       setAccessToken(data.access_token as string);
       closeModal();
       hideLoading();
+
+      const cartResponse = await refetchCart();
+      if (cartResponse.data) {
+        setCart(cartResponse.data);
+      }
     },
     onError: (error: Error) => {
       const authError = error as AuthErrorResponse;
@@ -133,31 +145,44 @@ export const useTestTokenMutation = () => {
   const { setUser, setAccessToken } = useAuthStore();
   const { addToast } = useToastStore();
   const { hideLoading } = useLoadingStore();
+  const { setCart } = useCartStore();
+
+  const { refetch: refetchCart } = useGetCartQuery();
 
   return useMutation<TestTokenResponse, AuthErrorResponse>({
     mutationFn: async () => {
       const response = await httpRequest.get<TestTokenResponse>('/auth/test');
       return response.data;
     },
-    onSuccess: (data: TestTokenResponse) => {
+    onSuccess: async (data: TestTokenResponse) => {
       addToast(data?.message as string, ToastEnum.SUCCESS);
+
+      const cartResponse = await refetchCart();
+      if (cartResponse.data && cartResponse?.isSuccess) {
+        setCart(cartResponse.data);
+      }
+      if (cartResponse?.error) {
+        hideLoading();
+      }
+
       hideLoading();
     },
     onError: (error: Error) => {
       const authError = error as AuthErrorResponse;
-      console.error('Logout failed:', error);
       const messages = authError?.messages;
       if (messages && Array.isArray(messages)) {
         messages.forEach((message: string) => {
           addToast(message, ToastEnum.ERROR);
-          setUser(null);
-          setAccessToken(null);
-          localStorage?.removeItem('user');
-          localStorage?.removeItem('access_token');
         });
       } else {
         addToast('Beklenmedik bir hata oluştu.', ToastEnum.ERROR);
       }
+
+      setUser(null);
+      setAccessToken(null);
+      localStorage?.removeItem('user');
+      localStorage?.removeItem('access_token');
+
       hideLoading();
     },
   });

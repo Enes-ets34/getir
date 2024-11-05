@@ -29,14 +29,14 @@ export class CartService {
       const newCart = new this.cartModel({
         userId,
         products: products.map((product) => ({
-          productId: new Types.ObjectId(product.productId),
+          product: new Types.ObjectId(product.product),
           quantity: product.quantity,
         })),
         totalPrice,
       });
 
       const savedCart = await newCart.save();
-      return savedCart.populate('products.productId');
+      return savedCart.populate('products.product');
     }
   }
 
@@ -51,22 +51,22 @@ export class CartService {
     }
 
     const existingProducts = new Map(
-      cart.products.map((product) => [product.productId.toString(), product]),
+      cart.products.map((product) => [product.product.toString(), product]),
     );
 
     for (const product of products) {
-      const existingProduct = existingProducts.get(product.productId as string);
+      const existingProduct = existingProducts.get(product.product as string);
 
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
 
         if (existingProduct.quantity <= 0) {
-          existingProducts.delete(product.productId as string);
+          existingProducts.delete(product.product as string);
         }
       } else {
         if (product.quantity > 0) {
-          existingProducts.set(product.productId as string, {
-            productId: new Types.ObjectId(product.productId),
+          existingProducts.set(product.product as string, {
+            product: new Types.ObjectId(product.product),
             quantity: product.quantity,
           });
         }
@@ -82,13 +82,13 @@ export class CartService {
     cart.totalPrice = await this.calculateTotalPrice(cart.products);
 
     const updatedCart = await cart.save();
-    return updatedCart.populate('products.productId');
+    return updatedCart.populate('products.product');
   }
 
   async getCartByUserId(userId: string): Promise<Cart> {
     const cart = await this.cartModel
       .findOne({ userId })
-      .populate('products.productId');
+      .populate('products.product');
 
     if (!cart) {
       throw new NotFoundException('Cart not found for this user');
@@ -116,7 +116,7 @@ export class CartService {
 
     for (const item of products) {
       const product = await this.productService.getSingleProductById(
-        item.productId as Types.ObjectId,
+        item.product as Types.ObjectId,
       );
       const price = product.discountedPrice ?? product.price;
       totalPrice += price * item.quantity;

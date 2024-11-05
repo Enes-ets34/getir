@@ -32,9 +32,10 @@ const CampaignDetail: React.FC<CampaignDetailProps> = ({ campaignId }) => {
       addToast(error?.message, ToastEnum.ERROR);
     }
   }, [isSuccess, isError, isLoading]);
-  const { setTitle } = useModalStore();
+  const { setTitle, setBottom } = useModalStore();
   useEffect(() => {
     setTitle('');
+    setBottom(null);
   }, []);
   return (
     <div className={campaignDetailStyles.wrapper}>

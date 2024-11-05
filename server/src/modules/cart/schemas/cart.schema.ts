@@ -8,11 +8,11 @@ export class Cart extends Document {
 
   @Prop([
     {
-      productId: { type: Types.ObjectId, ref: 'Product', required: true },
+      product: { type: Types.ObjectId, ref: 'Product', required: true },
       quantity: { type: Number, required: true, default: 1 },
     },
   ])
-  products: { productId: Types.ObjectId; quantity: number }[];
+  products: { product: Types.ObjectId; quantity: number }[];
 
   @Prop({ type: Number, required: true, default: 0 })
   totalPrice: number;
