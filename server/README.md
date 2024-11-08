@@ -58,28 +58,40 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Resources
+## Folder Structure
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+src/                                      # Main source directory
+├── app.controller.ts                     # Handles incoming requests and routes
+├── app.module.ts                         # Root module that ties all other modules together
+├── app.service.ts                        # Core service for handling app logic
+├── filters/                              # Contains custom exception filters
+│   └── all-exceptions.filter.ts          # Global exception filter that handles all exceptions
+├── helpers/                              # Contains utility helper functions
+│   ├── auth/                             # Authentication-related helpers
+│   ├── database/                         # Database-related helpers
+│   └── slugify.helpers.ts                # Helper function for slugifying strings
+├── middlewares/                          # Contains middleware for request processing
+│   └── authorization/                    # Authorization-related middleware
+│       └── auth.middleware.ts            # Middleware for checking user authorization (JWT)
+├── modules/                              # Main app functionality split into modules
+│   ├── auth/                             # Authentication module (login, signup, etc.)
+│   │   ├── dto/                         # Data Transfer Objects (DTOs) for validation
+│   │   ├── auth.controller.spec.ts      # Unit test for the auth controller
+│   │   ├── auth.controller.ts           # Controller for handling authentication routes
+│   │   ├── auth.module.ts               # Defines the auth module (imports services, controllers)
+│   │   ├── auth.service.spec.ts         # Unit test for the auth service
+│   │   └── auth.service.ts              # Service for handling authentication logic
+│   ├── campaign/                         # Campaign module (handles marketing campaigns)
+│   ├── cart/                             # Cart module (handles shopping cart functionality)
+│   ├── category/                         # Category module (handles product categories)
+│   ├── config/                           # Configuration module (e.g., database settings)
+│   ├── product/                          # Product module (handles products)
+│   └── user/                             # User module (handles user-related functionality)
+├── types/                                # Contains custom types and interfaces
+├── utils/                                # Utility functions for common operations
+├── main.ts                               # Entry point for the NestJS application
+└── test/                                 # Contains test files for various modules and services
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```
