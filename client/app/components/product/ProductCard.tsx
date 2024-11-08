@@ -15,9 +15,12 @@ import {
   useUpdateCartMutation,
 } from '@/queries/cart/cart.mutation';
 import { useIsDeleteCart } from '@/hooks/useIsDeleteCart';
+import { useModalStore } from '@/store/modal';
+import Login from '../login-modal/Login';
 
 const ProductCard: React.FC<ProductProps> = ({ product, user }) => {
   const { products } = useCartStore();
+  const { openModal, setContent } = useModalStore();
   const { increment, decrement } = useUpdateCartMutation();
   const createCartMutation = useCreateCartMutation();
   const { deleteCart } = useDeleteCartMutation();
@@ -26,11 +29,37 @@ const ProductCard: React.FC<ProductProps> = ({ product, user }) => {
     item => item?.product?._id === product?._id
   );
   const handleIncrease = () => {
-    if (avaliableProduct) {
-      increment(avaliableProduct.product._id);
+    if (!user) {
+      handleModal();
     } else {
-      increment(product._id);
+      if (avaliableProduct) {
+        increment(avaliableProduct.product._id);
+      } else {
+        increment(product._id);
+      }
     }
+  };
+  const handleAddCart = () => {
+    if (products?.length > 0) {
+      handleIncrease();
+    } else {
+      if (!user) {
+        handleModal();
+      } else {
+        createCartMutation.mutate({
+          products: [
+            {
+              product: product?._id,
+              quantity: 1,
+            },
+          ],
+        });
+      }
+    }
+  };
+  const handleModal = () => {
+    openModal();
+    setContent(<Login />);
   };
 
   const handleDecrease = () => {
@@ -55,20 +84,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, user }) => {
         </div>
       ) : (
         <button
-          onClick={() => {
-            if (products?.length > 0) {
-              handleIncrease();
-            } else {
-              createCartMutation.mutate({
-                products: [
-                  {
-                    product: product?._id,
-                    quantity: 1,
-                  },
-                ],
-              });
-            }
-          }}
+          onClick={() => handleAddCart()}
           className={productCardStyles.addToCartButton}
         >
           <Icon

@@ -94,7 +94,7 @@ export const useUpdateCartMutation = () => {
 export const useDeleteCartMutation = () => {
   const { setCart } = useCartStore();
 
-  const { mutate } = useMutation<DeleteCartResponse, Error>({
+  const mutation = useMutation<DeleteCartResponse, Error>({
     mutationFn: async () => {
       const response = await httpRequest.delete<DeleteCartResponse>('/cart');
       return response.data;
@@ -108,8 +108,8 @@ export const useDeleteCartMutation = () => {
   });
 
   const deleteCart = () => {
-    mutate();
+    mutation.mutate();
   };
 
-  return { deleteCart };
+  return { deleteCart, ...mutation };
 };

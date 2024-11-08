@@ -17,9 +17,6 @@ const TabHeader: React.FC = ({}) => {
   const router = useRouter();
   const { user } = useAuthStore();
   const isMobileScreen = useMediaQuery(ScreenSizes.Small);
-  const handleOnClick = () => {
-    console.log('clicked...');
-  };
 
   return (
     <div className={tabHeaderStyles.wrapperStyle}>
@@ -64,10 +61,7 @@ const TabHeader: React.FC = ({}) => {
               />
             )}
             {isMobileScreen ? (
-              <GoToCartButton
-                handleOnClick={() => handleOnClick}
-                totalPrice={totalPrice}
-              />
+              <GoToCartButton totalPrice={totalPrice} />
             ) : (
               <div className={tabHeaderStyles.cartPriceContainer}>
                 <span className={tabHeaderStyles.cartPrice}>

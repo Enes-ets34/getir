@@ -27,7 +27,7 @@ const ProductsDropdown: React.FC<ProductsDropdownProps> = ({
     <>
       {isOpen && (
         <div
-          onClick={() => setDropdown(!isOpen)} // Tıklama ile toggle işlemi
+          onClick={() => setDropdown(!isOpen)}
           className={`${isSmallScreen ? modalStyles.overlay : ''} z-[99]`}
         >
           <AnimatePresence>

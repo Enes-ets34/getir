@@ -22,6 +22,7 @@ import bag from '@assets/icons/bag.svg';
 import bag_lilac from '@assets/icons/bag-lilac.svg';
 import minus from '@assets/icons/minus.svg';
 import delete_1 from '@assets/icons/delete-1.svg';
+import map_pin from '@assets/icons/map-pin.svg';
 
 export const Icons = {
   language,
@@ -48,6 +49,7 @@ export const Icons = {
   bag_lilac,
   minus,
   delete_1,
+  map_pin,
 };
 
 export type icons = keyof typeof Icons;

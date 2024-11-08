@@ -2,16 +2,21 @@ import React from 'react';
 import { GoToCartButtonProps } from './button.types';
 import { buttonStyles } from './button.styles';
 import Button from '../button/Button';
+import { useRouter } from 'next/navigation';
 
 const GoToCartButton: React.FC<GoToCartButtonProps> = ({
   totalPrice,
-  handleOnClick,
-  className
+  className,
 }) => {
+  const router = useRouter();
   return (
-    <div className={`${buttonStyles.cartPriceContainer} ${className ? className : ''}`}>
+    <div
+      className={`${buttonStyles.cartPriceContainer} ${
+        className ? className : ''
+      }`}
+    >
       <Button
-        onClick={handleOnClick}
+        onClick={() => router?.push('/cart')}
         color='primary'
         text='Sepete git'
         className='rounded-r-none w-full'

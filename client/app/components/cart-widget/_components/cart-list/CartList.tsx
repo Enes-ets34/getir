@@ -9,26 +9,24 @@ const CartList: React.FC<CartProps> = ({
   deleteCart,
 }) => {
   return (
-    <ul className='py-2 flex flex-col'>
-      {products?.map((item: CartProduct, index) => (
-        <CartListItem
-          key={item?._id}
-          products={products}
-          item={item}
-          className={`transition-none ${
-            index + 1 !== products?.length ? 'border-b border-lilac' : ''
-          }`}
-          deleteCart={deleteCart}
-        />
-      ))}
-      <GoToCartButton
-        className='mt-6'
-        handleOnClick={() => {
-          console.log('hello');
-        }}
-        totalPrice={totalPrice}
-      />
-    </ul>
+    <div className='flex flex-col'>
+      <ul
+        className='py-2 flex flex-col overflow-y-auto max-h-96'
+      >
+        {products?.map((item: CartProduct, index) => (
+          <CartListItem
+            key={item?._id}
+            products={products}
+            item={item}
+            className={`transition-none ${
+              index + 1 !== products?.length ? 'border-b border-lilac' : ''
+            }`}
+            deleteCart={deleteCart}
+          />
+        ))}
+      </ul>
+      <GoToCartButton className='mt-6' totalPrice={totalPrice} />
+    </div>
   );
 };
 export default CartList;
