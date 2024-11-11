@@ -27,6 +27,7 @@
       "@campaign/*": ["modules/campaign/*"],
       "@category/*": ["modules/category/*"],
       "@product/*": ["modules/product/*"],
+      "@address/*": ["modules/address/*"],
       "@config/*": ["modules/config/*"]
     }
   },

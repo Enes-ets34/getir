@@ -10,6 +10,7 @@ import { CartModule } from './modules/cart/cart.module';
 
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
+import { AddressModule } from '@address/address.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AllExceptionsFilter } from 'filters/all-exceptions.filter';
     CategoryModule,
     ProductModule,
     CartModule,
+    AddressModule,
   ],
   providers: [
     {

@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose'; // Mongoose'un Types kısmını import ettik
 import * as bcrypt from 'bcrypt';
 import { Matches } from 'class-validator';
 import * as jwt from 'jsonwebtoken';
+import { Address } from '@address/schemas/address.schema'; // Address şemasını içe aktar
 
 @Schema({ collection: 'users' })
 export class User extends Document {
@@ -36,6 +37,9 @@ export class User extends Document {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({ type: [Types.ObjectId], ref: 'Address' }) // Address'leri ilişkilendiriyoruz
+  addresses: Address[];
 
   generateJwtFromUser(): string {
     const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env;
