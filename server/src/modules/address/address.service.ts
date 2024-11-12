@@ -40,4 +40,17 @@ export class AddressService {
 
     return updatedAddress;
   }
+  async delete(
+    addressId: string,
+  ): Promise<{ status: string; message: string }> {
+    const result = await this.addressModel.deleteOne({ _id: addressId });
+
+    if (result.deletedCount === 0) {
+      throw new NotFoundException('Address not found for this user');
+    }
+    return {
+      status: 'success',
+      message: `Address başarıyla silindi...`,
+    };
+  }
 }

@@ -1,3 +1,4 @@
+import { Address } from '@/queries/address/address.types';
 import { CartProduct } from '@/queries/cart/cart.types';
 import { User } from '@/queries/users/user.types';
 
@@ -9,4 +10,5 @@ export interface CartProps {
   deleteCart?: () => void;
   isMobileScreen?: boolean;
   totalPrice?: number;
+  selectedAddress: Address;
 }

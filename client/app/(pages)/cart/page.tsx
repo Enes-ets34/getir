@@ -11,6 +11,8 @@ import {
 } from '@/queries/cart/cart.mutation';
 import { RoutePaths } from '@/types/RoutePaths.enum';
 import useMediaQuery, { ScreenSizes } from '@/hooks/useMediaQuery';
+import { useAddressStore } from '@/store/address';
+import { Address } from '@/queries/address/address.types';
 
 const CartScreen: React.FC = () => {
   const navigate = useNavigation();
@@ -20,6 +22,7 @@ const CartScreen: React.FC = () => {
 
   const { user } = useAuthStore();
   const { products, totalPrice } = useCartStore();
+  const { selectedAddress } = useAddressStore();
 
   const isMobileScreen = useMediaQuery(ScreenSizes.Small);
   useEffect(() => {
@@ -38,6 +41,7 @@ const CartScreen: React.FC = () => {
       deleteCart={deleteCart}
       isMobileScreen={isMobileScreen}
       totalPrice={Number(JSON?.stringify(totalPrice)?.slice(0, 6))}
+      selectedAddress={selectedAddress as Address}
     />
   );
 };

@@ -15,6 +15,7 @@ const CartView: React.FC<CartProps> = ({
   decrement,
   deleteCart,
   totalPrice,
+  selectedAddress,
 }) => {
   const handleOnClick = () => {
     console.log('clicked...');
@@ -31,7 +32,7 @@ const CartView: React.FC<CartProps> = ({
             deleteCart={deleteCart}
           />
           <div className={cartViewStyles.secondSection}>
-            <AddressCard address='Yavuz Sultan Selim Blv., No:28' />
+            <AddressCard address={selectedAddress} />
             <TotalPrice
               totalPrice={totalPrice || 0}
               className='hidden md:block'

@@ -7,6 +7,7 @@ import {
   Post,
   Param,
   Get,
+  Delete,
 } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { UpdateAddressDto } from './dto/update-address.dto';
@@ -22,26 +23,22 @@ interface IGetUserAuthInfoRequest extends Request {
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
-   // Kullanıcıya ait adresleri almak
-   @UseGuards(GetAccessToRouteGuard)
-   @Get('/user-addresses')
-   async getAddressByUserId(
-     @Req() req: IGetUserAuthInfoRequest,
-   ) {
-     const userId = req.user?.id;
-     
-     if (!userId) {
-       throw new Error('User ID not found');  // User ID bulunmazsa hata
-     }
- 
-     // Kullanıcıya ait adresleri al
-     const addresses = await this.addressService.getAddressByUserId(userId);
- 
-     return {
-       status: 'success',
-       data: addresses,
-     };
-   }
+  @UseGuards(GetAccessToRouteGuard)
+  @Get('/user-addresses')
+  async getAddressByUserId(@Req() req: IGetUserAuthInfoRequest) {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      throw new Error('User ID not found');
+    }
+
+    const addresses = await this.addressService.getAddressByUserId(userId);
+
+    return {
+      status: 'success',
+      data: addresses,
+    };
+  }
   @UseGuards(GetAccessToRouteGuard)
   @Post('/create')
   async create(
@@ -76,6 +73,18 @@ export class AddressController {
     return {
       status: 'success',
       data: updatedAddress,
+    };
+  }
+  @UseGuards(GetAccessToRouteGuard)
+  @Delete('/delete/:id')
+  async delete(@Param('id') id: string) {
+    const addressId = id;
+
+    await this.addressService.delete(addressId);
+
+    return {
+      status: 'success',
+      message: 'address silindi',
     };
   }
 }

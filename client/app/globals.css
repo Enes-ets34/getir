@@ -26,3 +26,35 @@ body::-webkit-scrollbar {
 .custom-slick .slick-next {
   display: none;
 }
+.custom-marker-icon .pin {
+  width: 20px;
+  height: 20px;
+  background-color: #5d3ebc;
+  border-radius: 50%;
+  position: relative;
+  top: -10px;
+  left: -10px;
+  box-shadow: 0 0 0 2px white;
+}
+
+.custom-marker-icon .pulse {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(153, 59, 246, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  animation: pulse-animation 1.5s ease-out infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

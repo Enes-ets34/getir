@@ -10,6 +10,10 @@ import { useModalStore } from '@/store/modal';
 import Login from '../login-modal/Login';
 import useNavigation from '@/utils/handleNavigation';
 import { RoutePaths } from '@/types/RoutePaths.enum';
+import { useAddressStore } from '@/store/address';
+import { useGetAddressByIdQuery } from '@/queries/address/address.query';
+import { Address } from '@/queries/address/address.types';
+import useClosestAddress from '@/hooks/useClosestAddress';
 
 const ProtectedRoute = ({
   children,
@@ -22,11 +26,14 @@ const ProtectedRoute = ({
 
   const testTokenMutation = useTestTokenMutation();
   const { isPending } = testTokenMutation;
-
+  const addressListQuery = useGetAddressByIdQuery();
+  const addressList = addressListQuery?.data;
   const isProtected = useProtectedRoute(path);
   const { setUser, setAccessToken } = useAuthStore();
   const { showLoading, hideLoading } = useLoadingStore();
   const { openModal, setContent } = useModalStore();
+  const { setAddressList, setSelectedAddress } = useAddressStore();
+  useClosestAddress(addressList as Address[], setSelectedAddress);
 
   useEffect(() => {
     const tokenCheck = async () => {
@@ -57,6 +64,12 @@ const ProtectedRoute = ({
     };
     tokenCheck();
   }, [isProtected, router]);
+
+  useEffect(() => {
+    if (addressList) {
+      setAddressList(addressList as Address[]);
+    }
+  }, [addressList, setAddressList, setSelectedAddress]);
 
   useEffect(() => {
     if (isPending) {

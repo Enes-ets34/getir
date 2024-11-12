@@ -1,9 +1,10 @@
-import { Schema, Document } from 'mongoose';
-import { Prop, Schema as MongooseSchema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import {
-  IsNotEmpty,
-  IsString,
-} from 'class-validator';
+  Prop,
+  Schema as MongooseSchema,
+  SchemaFactory,
+} from '@nestjs/mongoose';
+import { IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @MongooseSchema()
 export class Address extends Document {
@@ -11,33 +12,45 @@ export class Address extends Document {
   @IsNotEmpty()
   @IsString()
   userId: string;
-
-  @Prop({ required: true })
+  
+  @Prop()
   @IsNotEmpty()
   @IsString()
-  contactName: string;
-
-  @Prop({ required: true })
-  @IsNotEmpty()
-  @IsString()
-  city: string;
-
-  @Prop({ required: true })
-  @IsNotEmpty()
-  @IsString()
-  country: string;
-
-  @Prop({ required: true })
+  title: string;
+  
+  @Prop()
   @IsNotEmpty()
   @IsString()
   address: string;
-
-  @Prop({ required: true })
+  
+  @Prop()
   @IsNotEmpty()
-  zipCode: string;
-
-  @Prop({ required: true })
+  @IsString()
+  apartment: string;
+  
+  @Prop()
   @IsNotEmpty()
-  phone: string;
+  @IsString()
+  description: string;
+  
+  @Prop()
+  @IsNotEmpty()
+  @IsString()
+  floor: string;
+  
+  @Prop()
+  @IsNotEmpty()
+  @IsString()
+  number: string;
+  
+  @Prop()
+  @IsNotEmpty()
+  @IsNumber()
+  lat: number;
+  
+  @Prop()
+  @IsNotEmpty()
+  @IsNumber()
+  long: number;
 }
 export const AddressSchema = SchemaFactory.createForClass(Address);
