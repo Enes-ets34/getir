@@ -10,7 +10,7 @@ async function bootstrap() {
   await connectDatabase();
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') || 3001;
+  const port = process.env.PORT || configService.get<number>('PORT') || 3001;
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -19,9 +19,12 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: '*',
+    origin: ['https://getir-livid.vercel.app/', 'http://localhost:3000'],
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization',
   });
+
   app.use(cookieParser());
   await app.listen(port);
 
