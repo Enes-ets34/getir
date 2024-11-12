@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+import React, { ComponentType, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Map from '@/components/map/Map';
 import Input from '@/components/input/Input';
 import Button from '@/components/button/Button';
 import { useCreateAddressMutation } from '@/queries/address/address.mutation';
 import { useGetAddressByIdQuery } from '@/queries/address/address.query';
 import { AddressFormProps } from './addressForm.types';
+import { MapComponentProps } from '@/components/map/map.types';
+import dynamic from 'next/dynamic';
+
+const Map: ComponentType<MapComponentProps> = dynamic(
+  () => import('@/components/map/Map'),
+  {
+    ssr: false, // SSR devre dışı bırak
+    loading: () => <div>Harita yükleniyor...</div>, // Yükleme durumu
+  }
+);
 
 export default function AddressForm({ setAddressForm }: AddressFormProps) {
   const [selectedLatLong, setSelectedLatLong] = useState<{
@@ -66,6 +76,7 @@ export default function AddressForm({ setAddressForm }: AddressFormProps) {
   return (
     <div>
       <Map onLocationSelect={handleLocationSelect} />
+
       <form onSubmit={formik.handleSubmit} className='flex flex-col gap-2'>
         <Input
           label='Başlık'
