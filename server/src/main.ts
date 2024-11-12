@@ -10,7 +10,7 @@ async function bootstrap() {
   await connectDatabase();
 
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT') ?? 3001;
+  const port = configService.get<number>('PORT') || 3001;
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
