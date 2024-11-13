@@ -18,13 +18,11 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
+  app.enableCors({
+    origin: ['http://localhost:3000','https://getir-livid.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+    allowedHeaders: ['*'],
   });
 
   app.use(cookieParser());
