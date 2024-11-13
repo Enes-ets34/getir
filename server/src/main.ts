@@ -20,7 +20,7 @@ async function bootstrap() {
   );
   app.enableCors({
     origin: [
-      'https://getir-livid.vercel.app', 
+      'https://getir-livid.vercel.app/', 
       'http://localhost:3000'
     ],
     credentials: true,
