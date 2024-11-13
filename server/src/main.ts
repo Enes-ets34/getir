@@ -19,13 +19,10 @@ async function bootstrap() {
     }),
   );
   app.enableCors({
-    origin: [
-      'https://getir-livid.vercel.app/', 
-      'http://localhost:3000'
-    ],
+    origin: ['http://localhost:3000','https://getir-livid.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
+    allowedHeaders: ['Content-Type,Authorization'],
   });
 
   app.use(cookieParser());
