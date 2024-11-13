@@ -101,11 +101,9 @@ const ProductCard: React.FC<ProductProps> = ({ product, user }) => {
         </Link>
         <div className='flex items-center gap-2'>
           {product?.discountedPrice && (
-            <p className='text-grayStorm line-through'>
-              ₺{product?.discountedPrice}
-            </p>
+            <p className='text-grayStorm line-through'>₺{product?.price}</p>
           )}
-          <p className={productCardStyles.price}>₺{product?.price}</p>
+          <p className={productCardStyles.price}>₺{product?.discountedPrice || product?.price}</p>
         </div>
         <p className={productCardStyles.title}>{product?.title}</p>
         <p className={productCardStyles.description}>{product?.description}</p>
